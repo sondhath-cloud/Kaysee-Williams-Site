@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaysee Williams - Website Layout Options</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #FF1493, #FF8C00);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .option-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .option-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .option-description {
+            font-size: 1.1em;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .admin-link {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .admin-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kaysee Williams</h1>
+        <p class="subtitle">Website Layout Options - Please review and provide feedback</p>
+        
+        <div class="options-grid">
+            <a href="layout-option-1.html" class="option-card">
+                <div class="option-title">Layout Option 1 - Classic Centered</div>
+                <div class="option-description">
+                    Traditional centered layout with sticky top navigation and horizontal scrolling portfolio. 
+                    Features accordion-style blog section and standard grid layouts.
+                </div>
+            </a>
+            
+            <a href="layout-option-2.html" class="option-card">
+                <div class="option-title">Layout Option 2 - Magazine Style</div>
+                <div class="option-description">
+                    Asymmetric magazine-style layout with split hero section, offset grids, and masonry portfolio. 
+                    Features horizontal navigation and featured blog with sidebar.
+                </div>
+            </a>
+            
+            <a href="layout-option-3.html" class="option-card">
+                <div class="option-title">Layout Option 3 - Sidebar Navigation</div>
+                <div class="option-description">
+                    Fixed left sidebar navigation with full-width main content area. 
+                    Features traditional grid layouts and vertical navigation highlighting.
+                </div>
+            </a>
+        </div>
+        
+        <div class="instructions">
+            <strong>Instructions:</strong> Click on a layout option to view the website design. 
+            Use the feedback cards in the margins to let us know what you like about each component. 
+            Your feedback will help us create the perfect final website!
+        </div>
+    </div>
+</body>
+</html>

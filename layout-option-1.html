@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Brand - Energetic and Fun (with Feedback)</title>
+    <title>Personal Brand - Layout Option 1 (with Feedback)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
@@ -78,6 +78,7 @@
             color: var(--dark-gray);
             line-height: 1.6;
             overflow-x: visible;
+            padding-top: 130px;
         }
 
         .site-container {
@@ -216,17 +217,16 @@
 
         /* High Contrast Accessibility Button */
         .high-contrast-btn {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            color: var(--dark-gray);
-            padding: 6px 10px;
-            border-radius: 15px;
+            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 0.6em;
+            font-size: 0.75em;
             font-weight: 600;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            white-space: nowrap;
             max-width: 200px;
             text-align: center;
             line-height: 1.2;
@@ -235,9 +235,7 @@
 
         .high-contrast-btn:hover {
             transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
         }
 
         /* Save Theme Button */
@@ -473,10 +471,32 @@
 
         /* Portfolio/Work Section */
         .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
             gap: 30px;
             margin-top: 40px;
+            padding: 20px 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--hot-pink) var(--light-yellow);
+        }
+
+        .portfolio-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .portfolio-grid::-webkit-scrollbar-track {
+            background: var(--light-yellow);
+            border-radius: 4px;
+        }
+
+        .portfolio-grid::-webkit-scrollbar-thumb {
+            background: var(--hot-pink);
+            border-radius: 4px;
+        }
+
+        .portfolio-grid::-webkit-scrollbar-thumb:hover {
+            background: var(--fuschia);
         }
 
         .portfolio-item {
@@ -486,6 +506,8 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             cursor: pointer;
             min-height: 300px;
+            min-width: 300px;
+            flex-shrink: 0;
         }
 
         .portfolio-item:hover {
@@ -861,7 +883,7 @@
             position: absolute;
             top: 10px;
             right: -150px;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(45, 45, 45, 0.95));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 248, 248, 0.95));
             border: 3px solid #FFD700;
             border-radius: 12px;
             padding: 15px;
@@ -971,10 +993,11 @@
         }
 
         .feedback-label-text {
-            color: #FFFFFF;
+            color: #2D2D2D;
             font-size: 0.85em;
             line-height: 1.4;
             flex: 1;
+            font-weight: 600;
         }
 
         .feedback-submitted {
@@ -1004,10 +1027,52 @@
             position: relative;
         }
 
+        /* Layout Banner */
+        .layout-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            color: var(--white);
+            padding: 15px 0;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: 700;
+            z-index: 300;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-family: 'Pacifico', cursive;
+        }
+
+        /* Return to Layout Selector Button */
+        .layout-selector-btn {
+            position: fixed;
+            top: 60px;
+            left: 30px;
+            z-index: 200;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--hot-pink);
+            padding: 10px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .layout-selector-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: var(--white);
+        }
+
         /* Theme Selector Floating Card */
         .theme-control-card {
             position: fixed;
-            top: 20px;
+            top: 60px;
             right: calc(50% - 800px - 160px);
             z-index: 200;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(45, 45, 45, 0.95));
@@ -1228,7 +1293,13 @@
     </style>
 </head>
 <body>
+    <!-- Layout Banner -->
+    <div class="layout-banner">Layout Option 1 - Classic Centered</div>
+
     <div class="site-container">
+        <!-- Return to Layout Selector Button -->
+        <a href="index.html" class="layout-selector-btn">← Return to Layout Selector</a>
+
         <!-- Theme Control Floating Card (Replaces old theme controls) -->
         <div class="theme-control-card" id="themeControlCard">
             <div class="theme-control-header" onclick="toggleThemeCard()">
@@ -1252,7 +1323,7 @@
                 <a href="#services" class="nav-item">Services</a>
                 <a href="#blog" class="nav-item">Blog</a>
                 <a href="#contact" class="nav-item">Contact</a>
-                <div class="high-contrast-btn" onclick="toggleHighContrast()" title="Toggle High Contrast">Click here to toggle a high-contrast website experience.</div>
+                <button class="high-contrast-btn" onclick="toggleHighContrast()">High Contrast</button>
             </nav>
             <div class="header-cta">Let's Connect!</div>
             <div class="hamburger">☰</div>
@@ -1621,7 +1692,7 @@
 
     <script>
         // ===== FEEDBACK SYSTEM CONFIGURATION =====
-        const LAYOUT_VERSION = 'personal-brand-site'; // Update this for each layout version
+        const LAYOUT_VERSION = 'layout-option-1'; // Update this for each layout version
         const API_BASE_URL = 'api/feedback.php'; // Adjust path as needed for your SiteWorks setup
 
         // Toggle Feedback Card Collapse/Expand
@@ -1727,74 +1798,174 @@
             });
         }
 
-        // Color Shuffle System - Keeps the same palette but shuffles which elements get which colors
-        const colorPalette = {
-            primary: ['#FF1493', '#E91E63', '#FF6B35', '#FF8C42', '#FFD23F'],
-            light: ['#FFF4D6', '#FFE5EC', '#FFF0E5', '#FFFACD', '#FFEFD5'],
-            neutral: ['#2D2D2D', '#666', '#F5F5F5', '#FFFFFF']
-        };
-
-        let shuffleCount = 0;
-
-        // Fisher-Yates shuffle algorithm
-        function shuffleArray(array) {
-            const newArray = [...array];
-            for (let i = newArray.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        // Color Theme System - 10 predefined themes
+        const colorThemes = [
+            {
+                name: 'Original',
+                colors: {
+                    '--hot-pink': '#FF1493',
+                    '--fuschia': '#E91E63', 
+                    '--orange': '#FF6B35',
+                    '--bright-orange': '#FF8C42',
+                    '--yellow': '#FFD23F',
+                    '--light-yellow': '#FFF4D6'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Ocean Blue',
+                colors: {
+                    '--hot-pink': '#0077BE',
+                    '--fuschia': '#4A90E2',
+                    '--orange': '#5DADE2',
+                    '--bright-orange': '#85C1E9',
+                    '--yellow': '#AED6F1',
+                    '--light-yellow': '#EBF5FB'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Forest Green',
+                colors: {
+                    '--hot-pink': '#27AE60',
+                    '--fuschia': '#2ECC71',
+                    '--orange': '#58D68D',
+                    '--bright-orange': '#82E0AA',
+                    '--yellow': '#ABEBC6',
+                    '--light-yellow': '#D5F4E6'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Purple Dream',
+                colors: {
+                    '--hot-pink': '#8E44AD',
+                    '--fuschia': '#A569BD',
+                    '--orange': '#BB8FCE',
+                    '--bright-orange': '#D2B4DE',
+                    '--yellow': '#E8DAEF',
+                    '--light-yellow': '#F4ECF7'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Sunset Orange',
+                colors: {
+                    '--hot-pink': '#E67E22',
+                    '--fuschia': '#F39C12',
+                    '--orange': '#F7DC6F',
+                    '--bright-orange': '#FADBD8',
+                    '--yellow': '#FEF9E7',
+                    '--light-yellow': '#FFF8DC'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Dark Mode',
+                colors: {
+                    '--hot-pink': '#E74C3C',
+                    '--fuschia': '#C0392B',
+                    '--orange': '#F39C12',
+                    '--bright-orange': '#E67E22',
+                    '--yellow': '#F1C40F',
+                    '--light-yellow': '#2C3E50'
+                },
+                background: 'dark',
+                bodyClass: 'dark-theme'
+            },
+            {
+                name: 'Pastel Pink',
+                colors: {
+                    '--hot-pink': '#FFB6C1',
+                    '--fuschia': '#FFC0CB',
+                    '--orange': '#FFD1DC',
+                    '--bright-orange': '#FFE4E1',
+                    '--yellow': '#FFF0F5',
+                    '--light-yellow': '#FFF8F8'
+                },
+                background: 'light',
+                bodyClass: 'light-theme'
+            },
+            {
+                name: 'Neon Cyber',
+                colors: {
+                    '--hot-pink': '#00FFFF',
+                    '--fuschia': '#FF00FF',
+                    '--orange': '#00FF00',
+                    '--bright-orange': '#FFFF00',
+                    '--yellow': '#FF1493',
+                    '--light-yellow': '#000000'
+                },
+                background: 'cyber',
+                bodyClass: 'cyber-theme'
+            },
+            {
+                name: 'Warm Earth',
+                colors: {
+                    '--hot-pink': '#8B4513',
+                    '--fuschia': '#A0522D',
+                    '--orange': '#CD853F',
+                    '--bright-orange': '#DEB887',
+                    '--yellow': '#F5DEB3',
+                    '--light-yellow': '#FFF8DC'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Royal Purple',
+                colors: {
+                    '--hot-pink': '#663399',
+                    '--fuschia': '#7B68EE',
+                    '--orange': '#9370DB',
+                    '--bright-orange': '#BA55D3',
+                    '--yellow': '#DDA0DD',
+                    '--light-yellow': '#F0E68C'
+                },
+                background: 'default'
             }
-            return newArray;
-        }
+        ];
+
+        let currentThemeIndex = 0;
 
         function cycleTheme() {
-            shuffleCount++;
+            currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+            applyTheme(colorThemes[currentThemeIndex]);
             
-            // Shuffle the primary colors
-            const shuffledPrimary = shuffleArray(colorPalette.primary);
-            const shuffledLight = shuffleArray(colorPalette.light);
-            
-            // Assign shuffled colors to CSS variables
-            const root = document.documentElement;
-            root.style.setProperty('--hot-pink', shuffledPrimary[0]);
-            root.style.setProperty('--fuschia', shuffledPrimary[1]);
-            root.style.setProperty('--orange', shuffledPrimary[2]);
-            root.style.setProperty('--bright-orange', shuffledPrimary[3]);
-            root.style.setProperty('--yellow', shuffledPrimary[4]);
-            
-            root.style.setProperty('--light-yellow', shuffledLight[0]);
-            
-            // Keep neutrals consistent
-            root.style.setProperty('--dark-gray', '#2D2D2D');
-            root.style.setProperty('--medium-gray', '#666');
-            root.style.setProperty('--light-gray', '#F5F5F5');
-            root.style.setProperty('--white', '#FFFFFF');
-
             // Update theme label
-            document.getElementById('themeLabel').textContent = 'Shuffle ' + shuffleCount;
+            document.getElementById('themeLabel').textContent = colorThemes[currentThemeIndex].name;
 
-            // Save shuffle state with detailed color mapping
-            const shuffleData = {
-                count: shuffleCount,
-                colors: {
-                    primary: shuffledPrimary,
-                    light: shuffledLight
-                },
-                mapping: {
-                    '--hot-pink': shuffledPrimary[0],
-                    '--fuschia': shuffledPrimary[1],
-                    '--orange': shuffledPrimary[2],
-                    '--bright-orange': shuffledPrimary[3],
-                    '--yellow': shuffledPrimary[4],
-                    '--light-yellow': shuffledLight[0]
-                },
-                timestamp: new Date().toISOString()
-            };
+            // Save current theme
+            localStorage.setItem('currentThemeIndex', currentThemeIndex);
+        }
 
-            localStorage.setItem('shuffleCount', shuffleCount);
-            localStorage.setItem('shuffledColors', JSON.stringify(shuffleData));
+        function applyTheme(theme) {
+            const root = document.documentElement;
             
-            // Log shuffle details for client reference
-            console.log(`Shuffle ${shuffleCount} Color Mapping:`, shuffleData.mapping);
+            // Apply color variables
+            Object.keys(theme.colors).forEach(key => {
+                root.style.setProperty(key, theme.colors[key]);
+            });
+
+            // Apply background theme
+            document.body.classList.remove('dark-theme', 'light-theme', 'cyber-theme');
+            if (theme.bodyClass) {
+                document.body.classList.add(theme.bodyClass);
+            }
+
+            // Apply background based on theme type
+            if (theme.background === 'dark') {
+                document.body.style.background = '#1a1a1a';
+                document.querySelector('.site-container').style.background = '#2d2d2d';
+            } else if (theme.background === 'light') {
+                document.body.style.background = '#f8f8f8';
+                document.querySelector('.site-container').style.background = '#ffffff';
+            } else if (theme.background === 'cyber') {
+                document.body.style.background = '#000000';
+                document.querySelector('.site-container').style.background = '#111111';
+            } else {
+                document.body.style.background = '';
+                document.querySelector('.site-container').style.background = '';
+            }
         }
 
         // Load saved shuffle on page load

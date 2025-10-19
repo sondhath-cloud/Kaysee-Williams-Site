@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Brand - Magazine Layout (with Feedback)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --hot-pink: #FF1493;
+            --fuschia: #E91E63;
+            --orange: #FF6B35;
+            --bright-orange: #FF8C42;
+            --yellow: #FFD23F;
+            --light-yellow: #FFF4D6;
+            --dark-gray: #2D2D2D;
+            --medium-gray: #666;
+            --light-gray: #F5F5F5;
+            --white: #FFFFFF;
+            transition: all 0.5s ease;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 130px;
+        }
+
+        /* Script Font for Headers */
+        h1, h2, h3, .hero-heading, .section-heading, .cta-heading, 
+        .content-heading, .footer-logo, .blog-post-title {
+            font-family: 'Pacifico', cursive;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        /* Smooth Transitions */
+        a, button, .nav-link, .hero-button, .cta-btn-primary, .cta-btn-secondary,
+        .portfolio-card, .blog-card, .social-icon,
+        .cookie-btn, .header-cta, .feature-card {
+            transition: all 0.3s ease;
+        }
+
+        /* MAGAZINE LAYOUT - Top Horizontal Navigation Bar */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(255, 20, 147, 0.15);
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.2em;
+            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            padding: 10px 0 15px 0;
+            line-height: 1.3;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--dark-gray);
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: var(--hot-pink);
+            border-bottom: 3px solid var(--hot-pink);
+        }
+
+        .high-contrast-btn {
+            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.75em;
+            font-weight: 600;
+            border: none;
+            white-space: nowrap;
+        }
+
+        .high-contrast-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+        }
+
+        /* High Contrast Mode Styles */
+        .high-contrast {
+            --hot-pink: #000000;
+            --fuschia: #000000;
+            --orange: #000000;
+            --bright-orange: #000000;
+            --yellow: #000000;
+            --light-yellow: #FFFFFF;
+            --dark-gray: #000000;
+            --medium-gray: #000000;
+            --light-gray: #FFFFFF;
+            --white: #FFFFFF;
+        }
+
+        .high-contrast .nav-link {
+            background: rgba(255, 255, 255, 0.9);
+            color: #000000;
+            border: 2px solid #000000;
+        }
+
+        .high-contrast .nav-link:hover {
+            background: #000000;
+            color: #FFFFFF;
+        }
+
+        .site-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: var(--white);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* ASYMMETRIC HERO - Magazine Style */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            min-height: 650px;
+            position: relative;
+        }
+
+        .hero-main {
+            background: linear-gradient(135deg, var(--light-yellow) 0%, var(--white) 100%);
+            padding: 100px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-heading {
+            font-size: 4em;
+            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            padding: 15px 20px 25px 20px;
+            line-height: 1.2;
+        }
+
+        .hero-text {
+            color: var(--medium-gray);
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .hero-button {
+            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            color: var(--white);
+            padding: 18px 50px;
+            border-radius: 50px;
+            width: fit-content;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1em;
+            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.3);
+            border: none;
+        }
+
+        .hero-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+        }
+
+        .hero-sidebar {
+            background: linear-gradient(135deg, var(--hot-pink) 0%, var(--orange) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2em;
+            font-weight: 600;
+            text-align: center;
+            padding: 40px;
+        }
+
+        /* MAGAZINE ABOUT SECTION - Offset Grid */
+        .about-section {
+            padding: 100px 80px;
+            background: var(--white);
+            position: relative;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image-wrap {
+            position: relative;
+        }
+
+        .about-image {
+            background: linear-gradient(135deg, var(--fuschia) 0%, var(--orange) 100%);
+            padding: 60px 40px;
+            border-radius: 20px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.8em;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .about-content h2 {
+            font-size: 3.5em;
+            color: var(--hot-pink);
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+            color: var(--medium-gray);
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        /* ASYMMETRIC SERVICES - Magazine Cards */
+        .services-section {
+            padding: 100px 80px;
+            background: var(--light-gray);
+            position: relative;
+        }
+
+        .section-heading {
+            font-size: 3.5em;
+            color: var(--hot-pink);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-subheading {
+            text-align: center;
+            color: var(--medium-gray);
+            font-size: 1.2em;
+            margin-bottom: 60px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+        }
+
+        .feature-card:first-child {
+            grid-row: span 2;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(255, 20, 147, 0.2);
+        }
+
+        .card-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2em;
+            color: var(--hot-pink);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .card-text {
+            color: var(--medium-gray);
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+
+        /* MASONRY PORTFOLIO - Pinterest Style */
+        .portfolio-section {
+            padding: 100px 80px;
+            background: var(--white);
+            position: relative;
+        }
+
+        .portfolio-masonry {
+            column-count: 3;
+            column-gap: 30px;
+            margin-top: 60px;
+        }
+
+        .portfolio-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            break-inside: avoid;
+            cursor: pointer;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(255, 20, 147, 0.2);
+        }
+
+        .portfolio-image {
+            background: linear-gradient(135deg, var(--yellow) 0%, var(--orange) 100%);
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.3em;
+        }
+
+        .portfolio-card:nth-child(2) .portfolio-image {
+            height: 300px;
+        }
+
+        .portfolio-card:nth-child(4) .portfolio-image {
+            height: 200px;
+        }
+
+        .portfolio-info {
+            padding: 30px;
+        }
+
+        .portfolio-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8em;
+            color: var(--hot-pink);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .portfolio-desc {
+            color: var(--medium-gray);
+            line-height: 1.7;
+        }
+
+        /* MAGAZINE BLOG - Featured + Grid */
+        .blog-section {
+            padding: 100px 80px;
+            background: linear-gradient(135deg, var(--light-yellow) 0%, var(--white) 100%);
+            position: relative;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .blog-featured {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+        }
+
+        .blog-featured:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(255, 20, 147, 0.2);
+        }
+
+        .blog-featured-image {
+            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        .blog-featured-content {
+            padding: 40px;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .blog-date {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .blog-category {
+            color: var(--hot-pink);
+            font-weight: 600;
+        }
+
+        .blog-post-title {
+            font-size: 2.2em;
+            color: var(--hot-pink);
+            margin-bottom: 20px;
+        }
+
+        .blog-excerpt {
+            color: var(--medium-gray);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .blog-read-more {
+            color: var(--orange);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-read-more:hover {
+            color: var(--hot-pink);
+        }
+
+        .blog-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.15);
+        }
+
+        .blog-card .blog-post-title {
+            font-size: 1.3em;
+        }
+
+        /* CTA SECTION - Full Width Offset */
+        .cta-section {
+            background: linear-gradient(135deg, var(--hot-pink) 0%, var(--orange) 100%);
+            padding: 120px 80px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .cta-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cta-heading {
+            font-size: 3.8em;
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+
+        .cta-text {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .cta-btn-primary {
+            background: var(--white);
+            color: var(--hot-pink);
+            padding: 18px 50px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1em;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 18px 50px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1em;
+            border: 3px solid var(--white);
+        }
+
+        .cta-btn-secondary:hover {
+            background: var(--white);
+            color: var(--hot-pink);
+            transform: translateY(-5px);
+        }
+
+        /* FOOTER - Asymmetric Layout */
+        .footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            position: relative;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            padding: 80px 80px 40px;
+        }
+
+        .footer-logo {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--hot-pink), var(--yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--yellow);
+            font-size: 1.2em;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--hot-pink);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px 80px;
+            text-align: center;
+        }
+
+        .footer-bottom-content {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 3px solid var(--hot-pink);
+            padding: 20px 40px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: none;
+        }
+
+        .cookie-consent.active {
+            display: block;
+        }
+
+        .cookie-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .cookie-text {
+            color: var(--medium-gray);
+            line-height: 1.6;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cookie-btn {
+            padding: 12px 35px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            border: none;
+        }
+
+        .accept-btn {
+            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+        }
+
+        .accept-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
+        }
+
+        .reject-btn {
+            background: var(--light-gray);
+            color: var(--dark-gray);
+        }
+
+        .reject-btn:hover {
+            background: var(--medium-gray);
+            color: var(--white);
+        }
+
+        /* Floating Feedback Cards */
+        .feedback-card {
+            position: absolute;
+            top: 10px;
+            right: -150px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 248, 248, 0.95));
+            border: 3px solid #FFD700;
+            border-radius: 12px;
+            padding: 15px;
+            z-index: 150;
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.5);
+            max-width: 140px;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 1400px) {
+            .feedback-card {
+                right: -110px;
+                max-width: 100px;
+                font-size: 0.85em;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .feedback-card {
+                right: -70px;
+                max-width: 60px;
+                font-size: 0.75em;
+            }
+        }
+
+        .feedback-card.collapsed {
+            padding: 10px;
+            max-width: 140px;
+        }
+        
+        @media (max-width: 1400px) {
+            .feedback-card.collapsed {
+                max-width: 100px;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .feedback-card.collapsed {
+                max-width: 60px;
+            }
+        }
+
+        .feedback-card.collapsed .feedback-content {
+            display: none;
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .feedback-card.collapsed .feedback-header {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .feedback-title {
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .feedback-toggle {
+            color: #FFD700;
+            font-size: 1.2em;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        .feedback-card.collapsed .feedback-toggle {
+            transform: rotate(45deg);
+        }
+
+        .feedback-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .feedback-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .feedback-label:hover {
+            background: rgba(255, 215, 0, 0.15);
+        }
+
+        .feedback-radio {
+            margin-top: 3px;
+            cursor: pointer;
+            accent-color: #FFD700;
+        }
+
+        .feedback-label-text {
+            color: #2D2D2D;
+            font-size: 0.85em;
+            line-height: 1.4;
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .feedback-submitted {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ECC71;
+            padding: 8px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.85em;
+            font-weight: 600;
+            display: none;
+        }
+
+        .feedback-submitted.show {
+            display: block;
+        }
+
+        /* Component Container - Add position relative to parent sections */
+        .hero-section,
+        .about-section,
+        .services-section,
+        .portfolio-section,
+        .blog-section,
+        .cta-section,
+        .footer {
+            position: relative;
+        }
+
+        /* Layout Banner */
+        .layout-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            color: var(--white);
+            padding: 15px 0;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: 700;
+            z-index: 300;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-family: 'Pacifico', cursive;
+        }
+
+        /* Return to Layout Selector Button */
+        .layout-selector-btn {
+            position: fixed;
+            top: 60px;
+            left: 30px;
+            z-index: 200;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--hot-pink);
+            padding: 10px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .layout-selector-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: var(--white);
+        }
+
+        /* Theme Control Floating Card */
+        .theme-control-card {
+            position: fixed;
+            top: 60px;
+            right: 30px;
+            z-index: 200;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(45, 45, 45, 0.95));
+            border: 3px solid #FFD700;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.5);
+            max-width: 140px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-control-card.collapsed {
+            padding: 10px;
+        }
+
+        .theme-control-card.collapsed .theme-control-content {
+            display: none;
+        }
+
+        .theme-control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .theme-control-card.collapsed .theme-control-header {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .theme-control-title {
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .theme-control-toggle {
+            color: #FFD700;
+            font-size: 1.2em;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-control-card.collapsed .theme-control-toggle {
+            transform: rotate(45deg);
+        }
+
+        .theme-control-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .theme-shuffle-btn {
+            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            color: var(--white);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            text-align: center;
+        }
+
+        .theme-shuffle-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+        }
+
+        .theme-current-label {
+            color: #FFFFFF;
+            font-size: 0.8em;
+            text-align: center;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+
+        .theme-like-btn {
+            background: linear-gradient(135deg, #2ECC71, #27AE60);
+            color: var(--white);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            text-align: center;
+        }
+
+        .theme-like-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .theme-like-btn.saved {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            cursor: default;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 30px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-section {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-main {
+                padding: 60px 30px;
+            }
+
+            .hero-heading {
+                font-size: 2.5em;
+            }
+
+            .hero-sidebar {
+                min-height: 200px;
+            }
+
+            .about-section,
+            .services-section,
+            .portfolio-section,
+            .blog-section,
+            .cta-section {
+                padding: 60px 30px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card:first-child {
+                grid-row: auto;
+            }
+
+            .portfolio-masonry {
+                column-count: 1;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+                padding: 40px 30px;
+            }
+
+            .cookie-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Layout Banner -->
+    <div class="layout-banner">Layout Option 2 - Magazine Style</div>
+
+    <div class="site-container">
+        <!-- Return to Layout Selector Button -->
+        <a href="index.html" class="layout-selector-btn">← Return to Layout Selector</a>
+
+        <!-- Theme Control Floating Card -->
+        <div class="theme-control-card" id="themeControlCard">
+            <div class="theme-control-header" onclick="toggleThemeCard()">
+                <div class="theme-control-title">Theme Controls</div>
+                <div class="theme-control-toggle">−</div>
+            </div>
+            <div class="theme-control-content">
+                <button class="theme-shuffle-btn" onclick="cycleTheme()">Shuffle Colors</button>
+                <div class="theme-current-label" id="themeLabel">Original</div>
+                <button class="theme-like-btn" id="themeLikeBtn" onclick="saveThemePreference()">I like this color theme</button>
+            </div>
+        </div>
+
+        <!-- Header - Horizontal Top Nav -->
+        <header class="header">
+            <div class="logo-area">Kaysee</div>
+            <nav class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#work" class="nav-link">Work</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#blog" class="nav-link">Blog</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button class="high-contrast-btn" onclick="toggleHighContrast()">High Contrast</button>
+            </nav>
+        </header>
+
+        <!-- Hero Section - Asymmetric Magazine Layout -->
+        <section id="home" class="hero-section">
+            <div class="hero-main">
+                <h1 class="hero-heading">Empowering Children to Thrive</h1>
+                <p class="hero-text">I'm passionate about education, advocacy, and creating safe spaces where every child can reach their full potential. Through tutoring, nonprofit work, and family advocacy, I'm building a brighter future for our children.</p>
+                <button class="hero-button">Learn More</button>
+            </div>
+            <div class="hero-sidebar">
+                Kaysee's Photo Here
+            </div>
+            
+            <!-- Hero Feedback Card -->
+            <div class="feedback-card" id="feedback-hero" data-component="hero">
+                <div class="feedback-header" onclick="toggleFeedbackCard('feedback-hero')">
+                    <div class="feedback-title">Feedback: Hero</div>
+                    <div class="feedback-toggle">−</div>
+                </div>
+                <div class="feedback-content">
+                    <label class="feedback-label">
+                        <input type="radio" name="feedback-hero" value="like" class="feedback-radio" onchange="submitFeedback('hero', 'like')">
+                        <span class="feedback-label-text">I like this component layout</span>
+                    </label>
+                    <label class="feedback-label">
+                        <input type="radio" name="feedback-hero" value="suggest" class="feedback-radio" onchange="submitFeedback('hero', 'suggest_changes')">
+                        <span class="feedback-label-text">I suggest changes on this component</span>
+                    </label>
+                    <div class="feedback-submitted">Thank you! Feedback saved.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section - Offset Grid -->
+        <section id="about" class="about-section">
+            <div class="about-grid">
+                <div class="about-image-wrap">
+                    <div class="about-image">Kaysee's Photo Here</div>
+                </div>
+                <div class="about-content">
+                    <h2>About Me</h2>
+                    <p>Hi, I'm Kaysee</p>
+                    <p>I'm an educator, advocate, and passionate champion for children's success. My journey began when I realized I was doing a disservice teaching 3rd grade curriculum to students who were reading at a 1st grade level.</p>
+                    <p>This realization sparked my mission to create Young and Vibrant Tutoring, where we build confidence and academic success through personalized online tutoring for grades K-9.</p>
+                    <p>Beyond education, I co-founded Young and Vibrant Inc., a 501c3 nonprofit dedicated to eradicating child sexual abuse through education, prevention programs, and safe foster care homes.</p>
+                    <p>As a bonus mom to a wonderful young boy, I've learned that every child deserves love, support, and the opportunity to thrive in a safe, nurturing environment.</p>
+                </div>
+            </div>
+            
+            <!-- About Feedback Card -->
+            <div class="feedback-card" id="feedback-about" data-component="about">
+                <div class="feedback-header" onclick="toggleFeedbackCard('feedback-about')">
+                    <div class="feedback-title">Feedback: About</div>
+                    <div class="feedback-toggle">−</div>
+                </div>
+                <div class="feedback-content">
+                    <label class="feedback-label">
+                        <input type="radio" name="feedback-about" value="like" class="feedback-radio" onchange="submitFeedback('about', 'like')">
+                        <span class="feedback-label-text">I like this component layout</span>
+                    </label>
+                    <label class="feedback-label">
+                        <input type="radio" name="feedback-about" value="suggest" class="feedback-radio" onchange="submitFeedback('about', 'suggest_changes')">
+                        <span class="feedback-label-text">I suggest changes on this component</span>
+                    </label>
+                    <div class="feedback-submitted">Thank you! Feedback saved.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section - Asymmetric Cards -->
+        <section id="services" class="services-section">
+            <h2 class="section-heading">My Mission and Services</h2>
+            <p class="section-subheading">Empowering children and families through education and advocacy</p>
+            <div class="services-grid">
+                <div class="feature-card">
+                    <h3 class="card-title">Young and Vibrant Tutoring</h3>
+                    <p class="card-text">Confidence-building online math and reading tutoring for grades K-9. We specialize in writing, math, and reading tutoring, standardized testing preparation, and fostering self-confidence.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="card-title">Young and Vibrant Inc.</h3>
+                    <p class="card-text">Our mission is to eradicate child sexual abuse. We offer child abuse prevention programs, youth development activities, tutoring, and volunteer opportunities.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="card-title">Bonus Mom</h3>
+                    <p class="card-text">Being a step-mom to a young boy has taught me the incredible power of love, patience, and understanding. Every day brings new opportunities to support and encourage.</p>
+                </div>
+            </div>
+            
+            <!-- Services Feedback Card -->
+            <div class="feedback-card" id="feedback-services" data-component="services">
+                <div class="feedback-header" onclick="toggleFeedbackCard('feedback-services')">
+                    <div class="feedback-title">Feedback: Services</div>
+                    <div class="feedback-toggle">−</div>
+                </div>
+                <div class="feedback-content">
+                    <label class="feedback-label">
+                        <input type="radio" name="feedback-services" value="like" class="feedback-radio" onchange="submitFeedback('services', 'like')">
+                        <span class="feedback-label-text">I like this component layout</span>
+                    </label>
+                    <label class="feedback-label">
+                        <input type="radio" name="feedback-services" value="suggest" class="feedback-radio" onchange="submitFeedback('services', 'suggest_changes')">
+                        <span class="feedback-label-text">I suggest changes on this component</span>
+                    </label>
+                    <div class="feedback-submitted">Thank you! Feedback saved.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section - Masonry Layout -->
+        <section id="work" class="portfolio-section">
+            <h2 class="section-heading">Featured Projects</h2>
+            <p class="section-subheading">A showcase of recent work I'm proud of</p>
+            <div class="portfolio-masonry">
+                <div class="portfolio-card">
+                    <div class="portfolio-image">Project Image 1</div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">Vibrant Startup Launch</h3>
+                        <p class="portfolio-desc">A complete brand identity for an exciting new tech startup focused on wellness.</p>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">Project Image 2</div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">Social Media Success</h3>
+                        <p class="portfolio-desc">Multi-platform campaign that increased engagement by 300% in three months.</p>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">Project Image 3</div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">Content That Converts</h3>
+                        <p class="portfolio-desc">Strategic content series that generated over 10,000 leads for a growing business.</p>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image">Project Image 4</div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title">Bold Visual Identity</h3>
+                        <p class="portfolio-desc">Eye-catching design system for a creative agency ready to stand out.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Portfolio Feedback Card -->
+            <div class="feedback-card" id="feedback-work" data-component="work">
+                <div class="feedback-header" onclick="toggleFeedbackCard('feedback-work')">
+                    <div class="feedback-title">Feedback: Portfolio</div>
+                    <div class="feedback-toggle">−</div>
+                </div>
+                <div class="feedback-content">
+                    <label class="feedback-label">
+                        <input type="radio" name="feedback-work" value="like" class="feedback-radio" onchange="submitFeedback('work', 'like')">
+                        <span class="feedback-label-text">I like this component layout</span>
+                    </label>
+                    <label class="feedback-label">
+                        <input type="radio" name="feedback-work" value="suggest" class="feedback-radio" onchange="submitFeedback('work', 'suggest_changes')">
+                        <span class="feedback-label-text">I suggest changes on this component</span>
+                    </label>
+                    <div class="feedback-submitted">Thank you! Feedback saved.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section - Featured + Sidebar -->
+        <section id="blog" class="blog-section">
+            <h2 class="section-heading">Latest Thoughts and Tips</h2>
+            <p class="section-subheading">Sharing insights, inspiration, and practical advice</p>
+            <div class="blog-grid">
+                <div class="blog-featured">
+                    <div class="blog-featured-image">Featured Blog Image</div>
+                    <div class="blog-featured-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">Oct 15, 2025</span>
+                            <span class="blog-category">Creativity</span>
+                        </div>
+                        <h3 class="blog-post-title">5 Ways to Stay Creative</h3>
+                        <p class="blog-excerpt">Discover simple strategies to keep your creative energy flowing even during busy times. From morning routines to inspiration techniques, learn how to maintain your creative spark.</p>
+                        <a href="#" class="blog-read-more">Read Full Article →</a>
+                    </div>
+                </div>
+                <div class="blog-sidebar">
+                    <div class="blog-card">
+                        <div class="blog-meta">
+                            <span class="blog-date">Oct 10, 2025</span>
+                            <span class="blog-category">Business</span>
+                        </div>
+                        <h3 class="blog-post-title">Building Your Brand</h3>
+                        <p class="blog-excerpt">A step-by-step guide to creating an authentic brand that connects with your ideal audience.</p>
+                        <a href="#" class="blog-read-more">Read More →</a>
+                    </div>
+                    <div class="blog-card">
+                        <div class="blog-meta">
+                            <span class="blog-date">Oct 5, 2025</span>
+                            <span class="blog-category">Tips</span>
+                        </div>
+                        <h3 class="blog-post-title">Marketing on a Budget</h3>
+                        <p class="blog-excerpt">Effective marketing strategies that won't break the bank for small businesses and solopreneurs.</p>
+                        <a href="#" class="blog-read-more">Read More →</a>
+                    </div>
+                    <div class="blog-card">
+                        <div class="blog-meta">
+                            <span class="blog-date">Sep 28, 2025</span>
+                            <span class="blog-category">Inspiration</span>
+                        </div>
+                        <h3 class="blog-post-title">Finding Your Why</h3>
+                        <p class="blog-excerpt">Why purpose matters in business and how to discover what truly drives you forward.</p>
+                        <a href="#" class="blog-read-more">Read More →</a>
+                    </div>
+                    <div class="blog-card">
+                        <div class="blog-meta">
+                            <span class="blog-date">Sep 20, 2025</span>
+                            <span class="blog-category">Social Media</span>
+                        </div>
+                        <h3 class="blog-post-title">Instagram Growth Hacks</h3>
+                        <p class="blog-excerpt">Real strategies that work for growing your Instagram following organically in 2025.</p>
+                        <a href="#" class="blog-read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Blog Feedback Card -->
+            <div class="feedback-card" id="feedback-blog" data-component="blog">
+                <div class="feedback-header" onclick="toggleFeedbackCard('feedback-blog')">
+                    <div class="feedback-title">Feedback: Blog</div>
+                    <div class="feedback-toggle">−</div>
+                </div>
+                <div class="feedback-content">
+                    <label class="feedback-label">
+                        <input type="radio" name="feedback-blog" value="like" class="feedback-radio" onchange="submitFeedback('blog', 'like')">
+                        <span class="feedback-label-text">I like this component layout</span>
+                    </label>
+                    <label class="feedback-label">
+                        <input type="radio" name="feedback-blog" value="suggest" class="feedback-radio" onchange="submitFeedback('blog', 'suggest_changes')">
+                        <span class="feedback-label-text">I suggest changes on this component</span>
+                    </label>
+                    <div class="feedback-submitted">Thank you! Feedback saved.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="contact" class="cta-section">
+            <div class="cta-container">
+                <h2 class="cta-heading">Ready to Make a Difference?</h2>
+                <p class="cta-text">Whether you're looking for tutoring services for your child, want to support our nonprofit mission, or are interested in learning more about child advocacy, I'd love to connect with you.</p>
+                <div class="cta-buttons">
+                    <button class="cta-btn-primary">Get In Touch</button>
+                    <button class="cta-btn-secondary">Learn About Our Mission</button>
+                </div>
+            </div>
+            
+            <!-- CTA Feedback Card -->
+            <div class="feedback-card" id="feedback-cta" data-component="cta">
+                <div class="feedback-header" onclick="toggleFeedbackCard('feedback-cta')">
+                    <div class="feedback-title">Feedback: CTA</div>
+                    <div class="feedback-toggle">−</div>
+                </div>
+                <div class="feedback-content">
+                    <label class="feedback-label">
+                        <input type="radio" name="feedback-cta" value="like" class="feedback-radio" onchange="submitFeedback('cta', 'like')">
+                        <span class="feedback-label-text">I like this component layout</span>
+                    </label>
+                    <label class="feedback-label">
+                        <input type="radio" name="feedback-cta" value="suggest" class="feedback-radio" onchange="submitFeedback('cta', 'suggest_changes')">
+                        <span class="feedback-label-text">I suggest changes on this component</span>
+                    </label>
+                    <div class="feedback-submitted">Thank you! Feedback saved.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-main">
+                <div class="footer-column">
+                    <div class="footer-logo">Kaysee</div>
+                    <p class="footer-description">Educator, advocate, and champion for children's success. Empowering families through education and creating safe spaces where every child can thrive.</p>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-title">Quick Links</div>
+                    <div class="footer-links">
+                        <a href="#home" class="footer-link">Home</a>
+                        <a href="#about" class="footer-link">About</a>
+                        <a href="#work" class="footer-link">Portfolio</a>
+                        <a href="#services" class="footer-link">Services</a>
+                        <a href="#blog" class="footer-link">Blog</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-title">My Work</div>
+                    <div class="footer-links">
+                        <a href="https://youngandvibranttutoring.com" target="_blank" class="footer-link">Young and Vibrant Tutoring</a>
+                        <a href="https://youngandvibrantinc.com" target="_blank" class="footer-link">Young and Vibrant Inc.</a>
+                        <a href="#services" class="footer-link">Bonus Mom Story</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-title">Contact</div>
+                    <div class="footer-links">
+                        <a href="mailto:youngandvibranttutoring@gmail.com" class="footer-link">youngandvibranttutoring@gmail.com</a>
+                        <a href="tel:+13174297952" class="footer-link">(317) 429-7952</a>
+                        <a href="#contact" class="footer-link">Get In Touch</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    Copyright 2025 Kaysee. All rights reserved. | <a href="#" style="color: inherit; text-decoration: underline;">Privacy Policy</a> | <a href="#" style="color: inherit; text-decoration: underline;">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Cookie Consent -->
+        <div class="cookie-consent active">
+            <div class="cookie-container">
+                <p class="cookie-text">
+                    This website uses cookies to enhance your browsing experience and analyze site traffic. By continuing to use this site, you consent to our use of cookies. View our <a href="#" style="color: var(--hot-pink); text-decoration: underline;">Privacy Policy</a> for more information.
+                </p>
+                <div class="cookie-buttons">
+                    <button class="cookie-btn accept-btn" onclick="document.querySelector('.cookie-consent').style.display='none'">Accept All</button>
+                    <button class="cookie-btn reject-btn" onclick="document.querySelector('.cookie-consent').style.display='none'">Reject</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== FEEDBACK SYSTEM CONFIGURATION =====
+        const LAYOUT_VERSION = 'layout-option-2-magazine'; // Update this for each layout version
+        const API_BASE_URL = 'api/feedback.php'; // Adjust path as needed for your SiteWorks setup
+
+        // Toggle Feedback Card Collapse/Expand
+        function toggleFeedbackCard(cardId) {
+            const card = document.getElementById(cardId);
+            if (card) {
+                card.classList.toggle('collapsed');
+            }
+        }
+
+        // Toggle Theme Control Card Collapse/Expand
+        function toggleThemeCard() {
+            const card = document.getElementById('themeControlCard');
+            if (card) {
+                card.classList.toggle('collapsed');
+            }
+        }
+
+        // Submit Feedback to Database
+        function submitFeedback(componentName, feedbackType) {
+            const feedbackData = {
+                layout_version: LAYOUT_VERSION,
+                component_name: componentName,
+                feedback_type: feedbackType,
+                additional_comments: null,
+                client_name: null,
+                client_email: null
+            };
+
+            // Send feedback to API
+            fetch(API_BASE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(feedbackData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    const card = document.querySelector(`#feedback-${componentName}`);
+                    if (card) {
+                        const successMsg = card.querySelector('.feedback-submitted');
+                        if (successMsg) {
+                            successMsg.classList.add('show');
+                            setTimeout(() => {
+                                successMsg.classList.remove('show');
+                            }, 3000);
+                        }
+                    }
+                    console.log('Feedback saved:', data);
+                } else {
+                    console.error('Feedback submission failed:', data.message);
+                    alert('Failed to save feedback. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting feedback:', error);
+                alert('Error connecting to feedback system. Please check your connection.');
+            });
+        }
+
+        // Save Theme Preference
+        function saveThemePreference() {
+            const currentTheme = document.getElementById('themeLabel').textContent;
+            const btn = document.getElementById('themeLikeBtn');
+            
+            const feedbackData = {
+                layout_version: LAYOUT_VERSION,
+                component_name: 'theme-preference',
+                feedback_type: 'like',
+                additional_comments: `Client likes theme: ${currentTheme}`,
+                client_name: null,
+                client_email: null
+            };
+
+            fetch(API_BASE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(feedbackData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    btn.classList.add('saved');
+                    btn.textContent = 'Theme Saved!';
+                    setTimeout(() => {
+                        btn.classList.remove('saved');
+                        btn.textContent = 'I like this color theme';
+                    }, 3000);
+                    console.log('Theme preference saved:', data);
+                } else {
+                    console.error('Theme preference save failed:', data.message);
+                    alert('Failed to save theme preference. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error saving theme preference:', error);
+                alert('Error connecting to feedback system. Please check your connection.');
+            });
+        }
+
+        // Color Shuffle System
+        const colorPalette = {
+            primary: ['#FF1493', '#E91E63', '#FF6B35', '#FF8C42', '#FFD23F'],
+            light: ['#FFF4D6', '#FFE5EC', '#FFF0E5', '#FFFACD', '#FFEFD5'],
+            neutral: ['#2D2D2D', '#666', '#F5F5F5', '#FFFFFF']
+        };
+
+        let shuffleCount = 0;
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function cycleTheme() {
+            shuffleCount++;
+            
+            const shuffledPrimary = shuffleArray(colorPalette.primary);
+            const shuffledLight = shuffleArray(colorPalette.light);
+            
+            const root = document.documentElement;
+            root.style.setProperty('--hot-pink', shuffledPrimary[0]);
+            root.style.setProperty('--fuschia', shuffledPrimary[1]);
+            root.style.setProperty('--orange', shuffledPrimary[2]);
+            root.style.setProperty('--bright-orange', shuffledPrimary[3]);
+            root.style.setProperty('--yellow', shuffledPrimary[4]);
+            root.style.setProperty('--light-yellow', shuffledLight[0]);
+            
+            root.style.setProperty('--dark-gray', '#2D2D2D');
+            root.style.setProperty('--medium-gray', '#666');
+            root.style.setProperty('--light-gray', '#F5F5F5');
+            root.style.setProperty('--white', '#FFFFFF');
+
+            document.getElementById('themeLabel').textContent = 'Shuffle ' + shuffleCount;
+
+            const shuffleData = {
+                count: shuffleCount,
+                colors: {
+                    primary: shuffledPrimary,
+                    light: shuffledLight
+                },
+                mapping: {
+                    '--hot-pink': shuffledPrimary[0],
+                    '--fuschia': shuffledPrimary[1],
+                    '--orange': shuffledPrimary[2],
+                    '--bright-orange': shuffledPrimary[3],
+                    '--yellow': shuffledPrimary[4],
+                    '--light-yellow': shuffledLight[0]
+                },
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem('shuffleCount', shuffleCount);
+            localStorage.setItem('shuffledColors', JSON.stringify(shuffleData));
+            
+            console.log(`Shuffle ${shuffleCount} Color Mapping:`, shuffleData.mapping);
+        }
+
+        function loadSavedTheme() {
+            const savedCount = localStorage.getItem('shuffleCount');
+            const savedColors = localStorage.getItem('shuffledColors');
+            
+            if (savedCount && savedColors) {
+                shuffleCount = parseInt(savedCount);
+                const colors = JSON.parse(savedColors);
+                
+                const root = document.documentElement;
+                root.style.setProperty('--hot-pink', colors.colors.primary[0]);
+                root.style.setProperty('--fuschia', colors.colors.primary[1]);
+                root.style.setProperty('--orange', colors.colors.primary[2]);
+                root.style.setProperty('--bright-orange', colors.colors.primary[3]);
+                root.style.setProperty('--yellow', colors.colors.primary[4]);
+                root.style.setProperty('--light-yellow', colors.colors.light[0]);
+                
+                document.getElementById('themeLabel').textContent = 'Shuffle ' + shuffleCount;
+            } else {
+                document.getElementById('themeLabel').textContent = 'Original';
+            }
+        }
+
+        loadSavedTheme();
+
+        function toggleHighContrast() {
+            const body = document.body;
+            const isHighContrast = body.classList.contains('high-contrast');
+            
+            if (isHighContrast) {
+                body.classList.remove('high-contrast');
+                localStorage.setItem('highContrast', 'false');
+            } else {
+                body.classList.add('high-contrast');
+                localStorage.setItem('highContrast', 'true');
+            }
+        }
+
+        function loadHighContrast() {
+            const savedHighContrast = localStorage.getItem('highContrast');
+            if (savedHighContrast === 'true') {
+                document.body.classList.add('high-contrast');
+            }
+        }
+
+        loadHighContrast();
+
+        // Parallax and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const parallaxSections = document.querySelectorAll('.hero-section');
+            parallaxSections.forEach(section => {
+                gsap.to(section, {
+                    backgroundPosition: '50% 100%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: true
+                    }
+                });
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            const fadeElements = document.querySelectorAll('.feature-card, .portfolio-card, .blog-card');
+            fadeElements.forEach(element => {
+                gsap.from(element, {
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8,
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 85%',
+                        end: 'bottom 20%',
+                        toggleActions: 'play none none reverse'
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
