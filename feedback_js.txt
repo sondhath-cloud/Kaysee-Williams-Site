@@ -1,0 +1,51 @@
+        // ===== FEEDBACK SYSTEM CONFIGURATION =====
+        const LAYOUT_VERSION = 'layout-option-2'; // Update this for each layout version
+        const API_BASE_URL = 'api/feedback.php'; // Adjust path as needed for your SiteWorks setup
+
+        // Toggle Feedback Card Collapse/Expand
+        function toggleFeedbackCard(cardId) {
+            const card = document.getElementById(cardId);
+            if (card) {
+                card.classList.toggle('collapsed');
+            }
+        }
+
+        // Toggle Theme Control Card Collapse/Expand
+        function toggleThemeCard() {
+            const card = document.getElementById('themeControlCard');
+            if (card) {
+                card.classList.toggle('collapsed');
+            }
+        }
+
+        // Submit Feedback to Database
+        function submitFeedback(componentName, feedbackType) {
+            const feedbackData = {
+                layout_version: LAYOUT_VERSION,
+                component_name: componentName,
+                feedback_type: feedbackType,
+                additional_comments: null,
+                client_name: null,
+                client_email: null
+            };
+
+            // Send feedback to API
+            fetch(API_BASE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(feedbackData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    const card = document.querySelector(`#feedback-${componentName}`);
+                    if (card) {
+                        const successMsg = card.querySelector('.feedback-submitted');
+                        if (successMsg) {
+                            successMsg.classList.add('show');
+                            setTimeout(() => {
+                                successMsg.classList.remove('show');
+                            }, 3000);
