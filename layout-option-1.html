@@ -814,16 +814,7 @@
 
         /* Cookie Consent */
         .cookie-consent {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--white);
-            border-top: 3px solid var(--hot-pink);
-            padding: 20px 40px;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
-            z-index: 1000;
-            display: none;
+            display: none !important;
         }
 
         .cookie-consent.active {
@@ -1033,15 +1024,56 @@
             top: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
-            color: var(--white);
-            padding: 15px 0;
-            text-align: center;
+            background: var(--white);
+            color: var(--dark-gray);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 1.4em;
             font-weight: 700;
             z-index: 300;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             font-family: 'Pacifico', cursive;
+        }
+
+        .banner-title {
+            flex: 1;
+            text-align: center;
+        }
+
+        .banner-theme-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .banner-theme-btn {
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--dark-gray);
+            padding: 8px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.7em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+        }
+
+        .banner-theme-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        .banner-theme-label {
+            color: var(--dark-gray);
+            font-size: 0.7em;
+            font-weight: 600;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 15px;
+            white-space: nowrap;
         }
 
         /* Return to Layout Selector Button */
@@ -1071,17 +1103,7 @@
 
         /* Theme Selector Floating Card */
         .theme-control-card {
-            position: fixed;
-            top: 60px;
-            right: calc(50% - 800px - 160px);
-            z-index: 200;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(45, 45, 45, 0.95));
-            border: 3px solid #FFD700;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.5);
-            max-width: 140px;
-            transition: all 0.3s ease;
+            display: none !important;
         }
         
         @media (max-width: 1400px) {
@@ -1294,24 +1316,20 @@
 </head>
 <body>
     <!-- Layout Banner -->
-    <div class="layout-banner">Layout Option 1 - Classic Centered</div>
+    <div class="layout-banner">
+        <div></div>
+        <div class="banner-title">Layout Option 1 - Classic Centered</div>
+        <div class="banner-theme-controls">
+            <button class="banner-theme-btn" onclick="cycleTheme()">Shuffle Colors</button>
+            <div class="banner-theme-label" id="bannerThemeLabel">Original</div>
+            <button class="banner-theme-btn" id="bannerThemeLikeBtn" onclick="saveThemePreference()">I like this</button>
+        </div>
+    </div>
 
     <div class="site-container">
         <!-- Return to Layout Selector Button -->
         <a href="index.html" class="layout-selector-btn">← Return to Layout Selector</a>
 
-        <!-- Theme Control Floating Card (Replaces old theme controls) -->
-        <div class="theme-control-card" id="themeControlCard">
-            <div class="theme-control-header" onclick="toggleThemeCard()">
-                <div class="theme-control-title">Theme Controls</div>
-                <div class="theme-control-toggle">−</div>
-            </div>
-            <div class="theme-control-content">
-                <button class="theme-shuffle-btn" onclick="cycleTheme()">Shuffle Colors</button>
-                <div class="theme-current-label" id="themeLabel">Original</div>
-                <button class="theme-like-btn" id="themeLikeBtn" onclick="saveThemePreference()">I like this color theme</button>
-            </div>
-        </div>
 
         <!-- Header -->
         <header class="header">
@@ -1798,7 +1816,7 @@
             });
         }
 
-        // Color Theme System - 10 predefined themes
+        // Color Theme System - 10 predefined themes using client's selected colors only
         const colorThemes = [
             {
                 name: 'Original',
@@ -1813,113 +1831,112 @@
                 background: 'default'
             },
             {
-                name: 'Ocean Blue',
+                name: 'Hot Pink Focus',
                 colors: {
-                    '--hot-pink': '#0077BE',
-                    '--fuschia': '#4A90E2',
-                    '--orange': '#5DADE2',
-                    '--bright-orange': '#85C1E9',
-                    '--yellow': '#AED6F1',
-                    '--light-yellow': '#EBF5FB'
+                    '--hot-pink': '#FF1493',
+                    '--fuschia': '#FF1493',
+                    '--orange': '#FF1493',
+                    '--bright-orange': '#FF1493',
+                    '--yellow': '#FFFFFF',
+                    '--light-yellow': '#FFFFFF'
                 },
                 background: 'default'
             },
             {
-                name: 'Forest Green',
+                name: 'Orange Focus',
                 colors: {
-                    '--hot-pink': '#27AE60',
-                    '--fuschia': '#2ECC71',
-                    '--orange': '#58D68D',
-                    '--bright-orange': '#82E0AA',
-                    '--yellow': '#ABEBC6',
-                    '--light-yellow': '#D5F4E6'
+                    '--hot-pink': '#FF6B35',
+                    '--fuschia': '#FF6B35',
+                    '--orange': '#FF6B35',
+                    '--bright-orange': '#FF6B35',
+                    '--yellow': '#FFFFFF',
+                    '--light-yellow': '#FFFFFF'
                 },
                 background: 'default'
             },
             {
-                name: 'Purple Dream',
+                name: 'Yellow Focus',
                 colors: {
-                    '--hot-pink': '#8E44AD',
-                    '--fuschia': '#A569BD',
-                    '--orange': '#BB8FCE',
-                    '--bright-orange': '#D2B4DE',
-                    '--yellow': '#E8DAEF',
-                    '--light-yellow': '#F4ECF7'
+                    '--hot-pink': '#FFD23F',
+                    '--fuschia': '#FFD23F',
+                    '--orange': '#FFD23F',
+                    '--bright-orange': '#FFD23F',
+                    '--yellow': '#FFD23F',
+                    '--light-yellow': '#FFFFFF'
                 },
                 background: 'default'
             },
             {
-                name: 'Sunset Orange',
+                name: 'Fuschia Focus',
                 colors: {
-                    '--hot-pink': '#E67E22',
-                    '--fuschia': '#F39C12',
-                    '--orange': '#F7DC6F',
-                    '--bright-orange': '#FADBD8',
-                    '--yellow': '#FEF9E7',
-                    '--light-yellow': '#FFF8DC'
+                    '--hot-pink': '#E91E63',
+                    '--fuschia': '#E91E63',
+                    '--orange': '#E91E63',
+                    '--bright-orange': '#E91E63',
+                    '--yellow': '#FFFFFF',
+                    '--light-yellow': '#FFFFFF'
                 },
                 background: 'default'
             },
             {
                 name: 'Dark Mode',
                 colors: {
-                    '--hot-pink': '#E74C3C',
-                    '--fuschia': '#C0392B',
-                    '--orange': '#F39C12',
-                    '--bright-orange': '#E67E22',
-                    '--yellow': '#F1C40F',
-                    '--light-yellow': '#2C3E50'
+                    '--hot-pink': '#FF1493',
+                    '--fuschia': '#E91E63',
+                    '--orange': '#FF6B35',
+                    '--bright-orange': '#FF8C42',
+                    '--yellow': '#FFD23F',
+                    '--light-yellow': '#000000'
                 },
                 background: 'dark',
                 bodyClass: 'dark-theme'
             },
             {
-                name: 'Pastel Pink',
+                name: 'Light Mode',
                 colors: {
-                    '--hot-pink': '#FFB6C1',
-                    '--fuschia': '#FFC0CB',
-                    '--orange': '#FFD1DC',
-                    '--bright-orange': '#FFE4E1',
-                    '--yellow': '#FFF0F5',
-                    '--light-yellow': '#FFF8F8'
+                    '--hot-pink': '#FF1493',
+                    '--fuschia': '#E91E63',
+                    '--orange': '#FF6B35',
+                    '--bright-orange': '#FF8C42',
+                    '--yellow': '#FFD23F',
+                    '--light-yellow': '#FFFFFF'
                 },
                 background: 'light',
                 bodyClass: 'light-theme'
             },
             {
-                name: 'Neon Cyber',
+                name: 'Black & White',
                 colors: {
-                    '--hot-pink': '#00FFFF',
-                    '--fuschia': '#FF00FF',
-                    '--orange': '#00FF00',
-                    '--bright-orange': '#FFFF00',
-                    '--yellow': '#FF1493',
-                    '--light-yellow': '#000000'
-                },
-                background: 'cyber',
-                bodyClass: 'cyber-theme'
-            },
-            {
-                name: 'Warm Earth',
-                colors: {
-                    '--hot-pink': '#8B4513',
-                    '--fuschia': '#A0522D',
-                    '--orange': '#CD853F',
-                    '--bright-orange': '#DEB887',
-                    '--yellow': '#F5DEB3',
-                    '--light-yellow': '#FFF8DC'
+                    '--hot-pink': '#000000',
+                    '--fuschia': '#000000',
+                    '--orange': '#000000',
+                    '--bright-orange': '#000000',
+                    '--yellow': '#000000',
+                    '--light-yellow': '#FFFFFF'
                 },
                 background: 'default'
             },
             {
-                name: 'Royal Purple',
+                name: 'White & Black',
                 colors: {
-                    '--hot-pink': '#663399',
-                    '--fuschia': '#7B68EE',
-                    '--orange': '#9370DB',
-                    '--bright-orange': '#BA55D3',
-                    '--yellow': '#DDA0DD',
-                    '--light-yellow': '#F0E68C'
+                    '--hot-pink': '#FFFFFF',
+                    '--fuschia': '#FFFFFF',
+                    '--orange': '#FFFFFF',
+                    '--bright-orange': '#FFFFFF',
+                    '--yellow': '#FFFFFF',
+                    '--light-yellow': '#000000'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Mixed Palette',
+                colors: {
+                    '--hot-pink': '#FF1493',
+                    '--fuschia': '#E91E63',
+                    '--orange': '#FF6B35',
+                    '--bright-orange': '#FF8C42',
+                    '--yellow': '#FFD23F',
+                    '--light-yellow': '#FFF4D6'
                 },
                 background: 'default'
             }
@@ -1932,7 +1949,7 @@
             applyTheme(colorThemes[currentThemeIndex]);
             
             // Update theme label
-            document.getElementById('themeLabel').textContent = colorThemes[currentThemeIndex].name;
+            document.getElementById('bannerThemeLabel').textContent = colorThemes[currentThemeIndex].name;
 
             // Save current theme
             localStorage.setItem('currentThemeIndex', currentThemeIndex);

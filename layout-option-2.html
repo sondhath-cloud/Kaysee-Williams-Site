@@ -619,16 +619,7 @@
 
         /* Cookie Consent */
         .cookie-consent {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--white);
-            border-top: 3px solid var(--hot-pink);
-            padding: 20px 40px;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
-            z-index: 1000;
-            display: none;
+            display: none !important;
         }
 
         .cookie-consent.active {
@@ -837,15 +828,56 @@
             top: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
-            color: var(--white);
-            padding: 15px 0;
-            text-align: center;
+            background: var(--white);
+            color: var(--dark-gray);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 1.4em;
             font-weight: 700;
             z-index: 300;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             font-family: 'Pacifico', cursive;
+        }
+
+        .banner-title {
+            flex: 1;
+            text-align: center;
+        }
+
+        .banner-theme-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .banner-theme-btn {
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--dark-gray);
+            padding: 8px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.7em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+        }
+
+        .banner-theme-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        .banner-theme-label {
+            color: var(--dark-gray);
+            font-size: 0.7em;
+            font-weight: 600;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 15px;
+            white-space: nowrap;
         }
 
         /* Return to Layout Selector Button */
@@ -1058,7 +1090,15 @@
 </head>
 <body>
     <!-- Layout Banner -->
-    <div class="layout-banner">Layout Option 2 - Magazine Style</div>
+    <div class="layout-banner">
+        <div></div>
+        <div class="banner-title">Layout Option 2 - Magazine Style</div>
+        <div class="banner-theme-controls">
+            <button class="banner-theme-btn" onclick="cycleTheme()">Shuffle Colors</button>
+            <div class="banner-theme-label" id="bannerThemeLabel">Original</div>
+            <button class="banner-theme-btn" id="bannerThemeLikeBtn" onclick="saveThemePreference()">I like this</button>
+        </div>
+    </div>
 
     <div class="site-container">
         <!-- Return to Layout Selector Button -->
@@ -1419,6 +1459,216 @@
         // ===== FEEDBACK SYSTEM CONFIGURATION =====
         const LAYOUT_VERSION = 'layout-option-2-magazine'; // Update this for each layout version
         const API_BASE_URL = 'api/feedback.php'; // Adjust path as needed for your SiteWorks setup
+
+        // Color Theme System - 10 predefined themes using client's selected colors only
+        const colorThemes = [
+            {
+                name: 'Original',
+                colors: {
+                    '--hot-pink': '#FF1493',
+                    '--fuschia': '#E91E63', 
+                    '--orange': '#FF6B35',
+                    '--bright-orange': '#FF8C42',
+                    '--yellow': '#FFD23F',
+                    '--light-yellow': '#FFF4D6'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Hot Pink Focus',
+                colors: {
+                    '--hot-pink': '#FF1493',
+                    '--fuschia': '#FF1493',
+                    '--orange': '#FF1493',
+                    '--bright-orange': '#FF1493',
+                    '--yellow': '#FFFFFF',
+                    '--light-yellow': '#FFFFFF'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Orange Focus',
+                colors: {
+                    '--hot-pink': '#FF6B35',
+                    '--fuschia': '#FF6B35',
+                    '--orange': '#FF6B35',
+                    '--bright-orange': '#FF6B35',
+                    '--yellow': '#FFFFFF',
+                    '--light-yellow': '#FFFFFF'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Yellow Focus',
+                colors: {
+                    '--hot-pink': '#FFD23F',
+                    '--fuschia': '#FFD23F',
+                    '--orange': '#FFD23F',
+                    '--bright-orange': '#FFD23F',
+                    '--yellow': '#FFD23F',
+                    '--light-yellow': '#FFFFFF'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Fuschia Focus',
+                colors: {
+                    '--hot-pink': '#E91E63',
+                    '--fuschia': '#E91E63',
+                    '--orange': '#E91E63',
+                    '--bright-orange': '#E91E63',
+                    '--yellow': '#FFFFFF',
+                    '--light-yellow': '#FFFFFF'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Dark Mode',
+                colors: {
+                    '--hot-pink': '#FF1493',
+                    '--fuschia': '#E91E63',
+                    '--orange': '#FF6B35',
+                    '--bright-orange': '#FF8C42',
+                    '--yellow': '#FFD23F',
+                    '--light-yellow': '#000000'
+                },
+                background: 'dark',
+                bodyClass: 'dark-theme'
+            },
+            {
+                name: 'Light Mode',
+                colors: {
+                    '--hot-pink': '#FF1493',
+                    '--fuschia': '#E91E63',
+                    '--orange': '#FF6B35',
+                    '--bright-orange': '#FF8C42',
+                    '--yellow': '#FFD23F',
+                    '--light-yellow': '#FFFFFF'
+                },
+                background: 'light',
+                bodyClass: 'light-theme'
+            },
+            {
+                name: 'Black & White',
+                colors: {
+                    '--hot-pink': '#000000',
+                    '--fuschia': '#000000',
+                    '--orange': '#000000',
+                    '--bright-orange': '#000000',
+                    '--yellow': '#000000',
+                    '--light-yellow': '#FFFFFF'
+                },
+                background: 'default'
+            },
+            {
+                name: 'White & Black',
+                colors: {
+                    '--hot-pink': '#FFFFFF',
+                    '--fuschia': '#FFFFFF',
+                    '--orange': '#FFFFFF',
+                    '--bright-orange': '#FFFFFF',
+                    '--yellow': '#FFFFFF',
+                    '--light-yellow': '#000000'
+                },
+                background: 'default'
+            },
+            {
+                name: 'Mixed Palette',
+                colors: {
+                    '--hot-pink': '#FF1493',
+                    '--fuschia': '#E91E63',
+                    '--orange': '#FF6B35',
+                    '--bright-orange': '#FF8C42',
+                    '--yellow': '#FFD23F',
+                    '--light-yellow': '#FFF4D6'
+                },
+                background: 'default'
+            }
+        ];
+
+        let currentThemeIndex = 0;
+
+        function cycleTheme() {
+            currentThemeIndex = (currentThemeIndex + 1) % colorThemes.length;
+            applyTheme(colorThemes[currentThemeIndex]);
+            
+            // Update theme label
+            document.getElementById('bannerThemeLabel').textContent = colorThemes[currentThemeIndex].name;
+
+            // Save current theme
+            localStorage.setItem('currentThemeIndex', currentThemeIndex);
+        }
+
+        function applyTheme(theme) {
+            const root = document.documentElement;
+            
+            // Apply color variables
+            Object.keys(theme.colors).forEach(key => {
+                root.style.setProperty(key, theme.colors[key]);
+            });
+
+            // Apply background theme
+            document.body.classList.remove('dark-theme', 'light-theme', 'cyber-theme');
+            if (theme.bodyClass) {
+                document.body.classList.add(theme.bodyClass);
+            }
+
+            // Apply background based on theme type
+            if (theme.background === 'dark') {
+                document.body.style.background = '#1a1a1a';
+                document.querySelector('.site-container').style.background = '#2d2d2d';
+            } else if (theme.background === 'light') {
+                document.body.style.background = '#f8f8f8';
+                document.querySelector('.site-container').style.background = '#ffffff';
+            } else if (theme.background === 'cyber') {
+                document.body.style.background = '#000000';
+                document.querySelector('.site-container').style.background = '#111111';
+            } else {
+                document.body.style.background = '';
+                document.querySelector('.site-container').style.background = '';
+            }
+        }
+
+        function saveThemePreference() {
+            const currentTheme = colorThemes[currentThemeIndex];
+            const likeBtn = document.getElementById('bannerThemeLikeBtn');
+            
+            // Send feedback to API
+            fetch(API_BASE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    layout_version: LAYOUT_VERSION,
+                    component: 'theme_control',
+                    feedback_type: 'theme_preference',
+                    theme_name: currentTheme.name,
+                    theme_colors: currentTheme.colors,
+                    feedback_text: `User likes theme: ${currentTheme.name}`,
+                    timestamp: new Date().toISOString()
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Theme preference saved:', data);
+                likeBtn.textContent = '✓ Saved!';
+                likeBtn.style.background = 'linear-gradient(135deg, #2ECC71, #27AE60)';
+                likeBtn.style.cursor = 'default';
+                likeBtn.onclick = null;
+                
+                setTimeout(() => {
+                    likeBtn.textContent = 'I like this';
+                    likeBtn.style.background = 'rgba(255, 255, 255, 0.2)';
+                    likeBtn.style.cursor = 'pointer';
+                    likeBtn.onclick = saveThemePreference;
+                }, 2000);
+            })
+            .catch(error => {
+                console.error('Error saving theme preference:', error);
+                alert('Error connecting to feedback system. Please check your connection.');
+            });
+        }
 
         // Toggle Feedback Card Collapse/Expand
         function toggleFeedbackCard(cardId) {
