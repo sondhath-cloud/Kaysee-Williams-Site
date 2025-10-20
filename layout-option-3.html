@@ -92,7 +92,6 @@
             cursor: pointer;
             font-weight: 600;
             text-decoration: none;
-            border-left: 4px solid transparent;
             border-radius: 8px;
             background: rgba(255, 255, 255, 0.05);
         }
@@ -100,9 +99,7 @@
         .sidebar-nav-link:hover,
         .sidebar-nav-link.active {
             color: var(--white);
-            border-left: 4px solid var(--fuschia);
             background: rgba(255, 255, 255, 0.1);
-            padding-left: 25px;
         }
 
         .sidebar-footer {
@@ -139,6 +136,7 @@
             font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.2);
             text-align: center;
+            margin-bottom: 10px;
         }
 
         .high-contrast-btn:hover {
@@ -1170,6 +1168,8 @@
         </nav>
         <div class="sidebar-footer">
             <div class="sidebar-cta">Let's Connect!</div>
+            <button class="high-contrast-btn" onclick="shuffleSidebarColors()">Shuffle Nav Colors</button>
+            <button class="high-contrast-btn" id="saveSidebarColorsBtn" onclick="saveSidebarColorCombo()">Save this color combo</button>
             <button class="high-contrast-btn" onclick="toggleHighContrast()">Toggle High Contrast</button>
         </div>
     </aside>
@@ -2111,13 +2111,160 @@
                 root.style.setProperty('--yellow', colors.colors.primary[4]);
                 root.style.setProperty('--light-yellow', colors.colors.light[0]);
                 
-                document.getElementById('themeLabel').textContent = 'Shuffle ' + shuffleCount;
+                const themeLabel = document.getElementById('bannerThemeLabel');
+                if (themeLabel) {
+                    themeLabel.textContent = 'Shuffle ' + shuffleCount;
+                }
             } else {
-                document.getElementById('themeLabel').textContent = 'Original';
+                const themeLabel = document.getElementById('bannerThemeLabel');
+                if (themeLabel) {
+                    themeLabel.textContent = 'Original';
+                }
             }
         }
 
         loadSavedTheme();
+
+        // Sidebar Navigation Color Shuffle
+        const sidebarColorPalette = [
+            { bg: '#FF1493', text: '#FFFFFF', border: '#FFD23F', hover: '#E91E63' }, // Hot Pink
+            { bg: '#E91E63', text: '#FFFFFF', border: '#FF8C42', hover: '#FF1493' }, // Fuschia
+            { bg: '#FF6B35', text: '#FFFFFF', border: '#FFD23F', hover: '#FF8C42' }, // Orange
+            { bg: '#FF8C42', text: '#FFFFFF', border: '#FF1493', hover: '#FF6B35' }, // Bright Orange
+            { bg: '#FFD23F', text: '#2D2D2D', border: '#FF1493', hover: '#FF8C42' }, // Yellow
+            { bg: '#2ECC71', text: '#FFFFFF', border: '#FFD23F', hover: '#27AE60' }, // Green
+            { bg: '#3498DB', text: '#FFFFFF', border: '#FFD23F', hover: '#2980B9' }, // Blue
+            { bg: '#9B59B6', text: '#FFFFFF', border: '#FFD23F', hover: '#8E44AD' }, // Purple
+            { bg: '#1ABC9C', text: '#FFFFFF', border: '#FFD23F', hover: '#16A085' }, // Turquoise
+            { bg: '#F39C12', text: '#FFFFFF', border: '#E91E63', hover: '#E67E22' }  // Golden Orange
+        ];
+
+        let currentSidebarScheme = null;
+
+        function applySidebarColors(scheme) {
+            currentSidebarScheme = scheme;
+            const sidebar = document.querySelector('.sidebar');
+            const navLinks = document.querySelectorAll('.sidebar-nav-link');
+            const sidebarLogo = document.querySelector('.sidebar-logo');
+            
+            console.log('Applying sidebar colors:', scheme);
+            
+            if (sidebar) {
+                sidebar.style.background = scheme.bg;
+                sidebar.style.transition = 'all 0.5s ease';
+            }
+            
+            if (sidebarLogo) {
+                sidebarLogo.style.color = scheme.border;
+            }
+            
+            navLinks.forEach(link => {
+                link.style.setProperty('color', scheme.text, 'important');
+                link.style.setProperty('background', 'rgba(255, 255, 255, 0.1)', 'important');
+                link.style.transition = 'all 0.3s ease';
+                
+                // Store the scheme on the element for hover effects
+                link.dataset.textColor = scheme.text;
+                link.dataset.hoverBg = scheme.hover;
+            });
+        }
+
+        function shuffleSidebarColors() {
+            console.log('Shuffle button clicked!');
+            const randomScheme = sidebarColorPalette[Math.floor(Math.random() * sidebarColorPalette.length)];
+            console.log('Selected random scheme:', randomScheme);
+            applySidebarColors(randomScheme);
+            
+            // Save the preference
+            localStorage.setItem('sidebarColorScheme', JSON.stringify(randomScheme));
+            console.log('Sidebar colors shuffled to:', randomScheme);
+        }
+
+        function loadSidebarColors() {
+            const savedScheme = localStorage.getItem('sidebarColorScheme');
+            if (savedScheme) {
+                const scheme = JSON.parse(savedScheme);
+                applySidebarColors(scheme);
+            }
+        }
+
+        function saveSidebarColorCombo() {
+            if (!currentSidebarScheme) {
+                alert('Please shuffle colors first before saving.');
+                return;
+            }
+
+            const saveBtn = document.getElementById('saveSidebarColorsBtn');
+            
+            const feedbackData = {
+                layout_version: LAYOUT_VERSION,
+                component_name: 'sidebar_navigation',
+                feedback_type: 'color_preference',
+                additional_comments: JSON.stringify({
+                    background: currentSidebarScheme.bg,
+                    text: currentSidebarScheme.text,
+                    border: currentSidebarScheme.border,
+                    hover: currentSidebarScheme.hover,
+                    timestamp: new Date().toISOString()
+                }),
+                client_name: null,
+                client_email: null
+            };
+
+            fetch(API_BASE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(feedbackData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    saveBtn.style.background = 'linear-gradient(135deg, #2ECC71, #27AE60)';
+                    saveBtn.textContent = 'Saved!';
+                    saveBtn.style.cursor = 'default';
+                    saveBtn.onclick = null;
+                    
+                    setTimeout(() => {
+                        saveBtn.style.background = 'rgba(255, 255, 255, 0.1)';
+                        saveBtn.textContent = 'Save this color combo';
+                        saveBtn.style.cursor = 'pointer';
+                        saveBtn.onclick = saveSidebarColorCombo;
+                    }, 2000);
+                    
+                    console.log('Sidebar color combination saved:', data);
+                } else {
+                    console.error('Sidebar color save failed:', data.message);
+                    alert('Failed to save color combination. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error saving sidebar color combination:', error);
+                alert('Error connecting to feedback system. Please check your connection.');
+            });
+        }
+
+        // Add hover effects for sidebar nav links
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.sidebar-nav-link');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    if (currentSidebarScheme) {
+                        this.style.setProperty('background', currentSidebarScheme.hover, 'important');
+                        this.style.setProperty('color', '#FFFFFF', 'important');
+                    }
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    if (currentSidebarScheme) {
+                        this.style.setProperty('background', 'rgba(255, 255, 255, 0.1)', 'important');
+                        this.style.setProperty('color', currentSidebarScheme.text, 'important');
+                    }
+                });
+            });
+        });
 
         function toggleHighContrast() {
             const body = document.body;
@@ -2143,6 +2290,8 @@
 
         // Parallax and animations
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize sidebar colors after DOM is loaded
+            loadSidebarColors();
             gsap.registerPlugin(ScrollTrigger);
 
             const parallaxSections = document.querySelectorAll('.hero-section');
