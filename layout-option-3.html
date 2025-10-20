@@ -61,7 +61,7 @@
             top: 130px;
             width: 280px;
             height: calc(100vh - 130px);
-            background: linear-gradient(180deg, var(--dark-gray) 0%, rgba(45, 45, 45, 0.95) 100%);
+            background: var(--dark-gray);
             padding: 40px 30px;
             display: flex;
             flex-direction: column;
@@ -72,10 +72,7 @@
         .sidebar-logo {
             font-family: 'Pacifico', cursive;
             font-size: 2.5em;
-            background: linear-gradient(135deg, var(--hot-pink), var(--yellow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--yellow);
             margin-bottom: 50px;
             padding: 10px 0 30px 0;
             text-align: center;
@@ -103,7 +100,7 @@
         .sidebar-nav-link:hover,
         .sidebar-nav-link.active {
             color: var(--white);
-            border-left: 4px solid var(--hot-pink);
+            border-left: 4px solid var(--fuschia);
             background: rgba(255, 255, 255, 0.1);
             padding-left: 25px;
         }
@@ -115,20 +112,21 @@
         }
 
         .sidebar-cta {
-            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            background: var(--fuschia);
             color: var(--white);
             padding: 15px 25px;
             border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
             margin-bottom: 15px;
         }
 
         .sidebar-cta:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+            background: var(--hot-pink);
         }
 
         .high-contrast-btn {
@@ -185,7 +183,7 @@
 
         /* HERO SECTION - Full Width in Content Area */
         .hero-section {
-            background: linear-gradient(135deg, var(--light-yellow) 0%, var(--white) 100%);
+            background: linear-gradient(135deg, var(--hot-pink) 0%, var(--fuschia) 100%);
             padding: 120px 80px;
             text-align: center;
             min-height: 100vh;
@@ -202,42 +200,42 @@
 
         .hero-heading {
             font-size: 4.5em;
-            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--white);
             margin-bottom: 30px;
             padding: 15px 20px 25px 20px;
             line-height: 1.2;
         }
 
         .hero-text {
-            color: var(--medium-gray);
+            color: var(--white);
             font-size: 1.3em;
             margin-bottom: 40px;
             line-height: 1.8;
+            opacity: 0.95;
         }
 
         .hero-button {
-            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
-            color: var(--white);
+            background: var(--yellow);
+            color: var(--dark-gray);
             padding: 18px 50px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
             font-size: 1.1em;
-            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
             border: none;
         }
 
         .hero-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: var(--bright-orange);
+            color: var(--white);
         }
 
         .hero-visual {
             margin-top: 50px;
-            background: linear-gradient(135deg, var(--fuschia) 0%, var(--orange) 100%);
+            background: var(--orange);
             padding: 80px 60px;
             border-radius: 30px;
             min-height: 300px;
@@ -253,20 +251,20 @@
         /* ABOUT SECTION - Traditional Grid in Content Area */
         .about-section {
             padding: 100px 80px;
-            background: var(--white);
+            background: var(--light-yellow);
             position: relative;
         }
 
         .section-heading {
             font-size: 3.5em;
-            color: var(--hot-pink);
+            color: var(--fuschia);
             text-align: center;
             margin-bottom: 20px;
         }
 
         .section-subheading {
             text-align: center;
-            color: var(--medium-gray);
+            color: var(--dark-gray);
             font-size: 1.2em;
             margin-bottom: 60px;
         }
@@ -281,7 +279,7 @@
         }
 
         .about-image {
-            background: linear-gradient(135deg, var(--fuschia) 0%, var(--orange) 100%);
+            background: var(--orange);
             padding: 80px 40px;
             border-radius: 30px;
             min-height: 400px;
@@ -295,7 +293,7 @@
         }
 
         .about-text {
-            background: var(--light-gray);
+            background: var(--white);
             padding: 50px;
             border-radius: 30px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -303,7 +301,7 @@
 
         .about-text p {
             margin-bottom: 20px;
-            color: var(--medium-gray);
+            color: var(--dark-gray);
             font-size: 1.05em;
             line-height: 1.8;
         }
@@ -311,7 +309,7 @@
         /* SERVICES SECTION - Grid Layout */
         .services-section {
             padding: 100px 80px;
-            background: var(--light-gray);
+            background: var(--white);
             position: relative;
         }
 
@@ -334,23 +332,62 @@
             cursor: pointer;
         }
 
+        .feature-card:nth-child(1) {
+            background: var(--fuschia);
+            color: var(--white);
+        }
+
+        .feature-card:nth-child(2) {
+            background: var(--yellow);
+            color: var(--dark-gray);
+        }
+
+        .feature-card:nth-child(3) {
+            background: var(--orange);
+            color: var(--white);
+        }
+
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 12px 35px rgba(255, 20, 147, 0.2);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
         }
 
         .card-title {
             font-family: 'Dancing Script', cursive;
             font-size: 2em;
-            color: var(--hot-pink);
             margin-bottom: 20px;
             font-weight: 700;
         }
 
+        .feature-card:nth-child(1) .card-title {
+            color: var(--white);
+        }
+
+        .feature-card:nth-child(2) .card-title {
+            color: var(--fuschia);
+        }
+
+        .feature-card:nth-child(3) .card-title {
+            color: var(--white);
+        }
+
         .card-text {
-            color: var(--medium-gray);
             line-height: 1.7;
             font-size: 1.05em;
+        }
+
+        .feature-card:nth-child(1) .card-text {
+            color: var(--white);
+            opacity: 0.95;
+        }
+
+        .feature-card:nth-child(2) .card-text {
+            color: var(--dark-gray);
+        }
+
+        .feature-card:nth-child(3) .card-text {
+            color: var(--white);
+            opacity: 0.95;
         }
 
         /* PORTFOLIO SECTION - Traditional Grid */
@@ -380,41 +417,60 @@
 
         .portfolio-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 12px 35px rgba(255, 20, 147, 0.2);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
         }
 
         .portfolio-image {
-            background: linear-gradient(135deg, var(--yellow) 0%, var(--orange) 100%);
             height: 300px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
             font-weight: 600;
             font-size: 1.5em;
         }
 
+        .portfolio-card:nth-child(1) .portfolio-image {
+            background: var(--hot-pink);
+            color: var(--white);
+        }
+
+        .portfolio-card:nth-child(2) .portfolio-image {
+            background: var(--yellow);
+            color: var(--dark-gray);
+        }
+
+        .portfolio-card:nth-child(3) .portfolio-image {
+            background: var(--fuschia);
+            color: var(--white);
+        }
+
+        .portfolio-card:nth-child(4) .portfolio-image {
+            background: var(--orange);
+            color: var(--white);
+        }
+
         .portfolio-info {
             padding: 35px;
+            background: var(--white);
         }
 
         .portfolio-title {
             font-family: 'Dancing Script', cursive;
             font-size: 2em;
-            color: var(--hot-pink);
+            color: var(--fuschia);
             margin-bottom: 15px;
             font-weight: 700;
         }
 
         .portfolio-desc {
-            color: var(--medium-gray);
+            color: var(--dark-gray);
             line-height: 1.7;
         }
 
         /* BLOG SECTION - Card Grid */
         .blog-section {
             padding: 100px 80px;
-            background: linear-gradient(135deg, var(--light-yellow) 0%, var(--white) 100%);
+            background: var(--light-gray);
             position: relative;
         }
 
@@ -438,12 +494,12 @@
 
         .blog-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 12px 35px rgba(255, 20, 147, 0.2);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
         }
 
         .blog-card:first-child {
             grid-column: span 2;
-            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            background: var(--fuschia);
             color: var(--white);
         }
 
@@ -465,18 +521,18 @@
         }
 
         .blog-category {
-            color: var(--hot-pink);
+            color: var(--fuschia);
             font-weight: 600;
         }
 
         .blog-post-title {
             font-size: 2em;
-            color: var(--hot-pink);
+            color: var(--fuschia);
             margin-bottom: 20px;
         }
 
         .blog-excerpt {
-            color: var(--medium-gray);
+            color: var(--dark-gray);
             line-height: 1.7;
             margin-bottom: 20px;
         }
@@ -500,12 +556,12 @@
         }
 
         .blog-read-more:hover {
-            color: var(--hot-pink);
+            color: var(--fuschia);
         }
 
         /* CTA SECTION */
         .cta-section {
-            background: linear-gradient(135deg, var(--hot-pink) 0%, var(--orange) 100%);
+            background: var(--orange);
             padding: 120px 80px;
             text-align: center;
             color: var(--white);
@@ -537,8 +593,8 @@
         }
 
         .cta-btn-primary {
-            background: var(--white);
-            color: var(--hot-pink);
+            background: linear-gradient(135deg, var(--yellow), var(--bright-orange));
+            color: var(--dark-gray);
             padding: 18px 50px;
             border-radius: 50px;
             cursor: pointer;
@@ -551,6 +607,7 @@
         .cta-btn-primary:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: var(--yellow);
         }
 
         .cta-btn-secondary {
@@ -566,7 +623,7 @@
 
         .cta-btn-secondary:hover {
             background: var(--white);
-            color: var(--hot-pink);
+            color: var(--orange);
             transform: translateY(-5px);
         }
 
@@ -589,10 +646,7 @@
         .footer-logo {
             font-size: 2.5em;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--hot-pink), var(--yellow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--yellow);
         }
 
         .footer-description {
@@ -672,14 +726,15 @@
         }
 
         .accept-btn {
-            background: linear-gradient(135deg, var(--hot-pink), var(--orange));
+            background: var(--fuschia);
             color: var(--white);
-            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
         }
 
         .accept-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+            background: var(--hot-pink);
         }
 
         .reject-btn {
@@ -821,6 +876,90 @@
 
         .feedback-submitted.show {
             display: block;
+        }
+
+        /* Component Color Shuffle Controls */
+        .component-color-controls {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .shuffle-btn {
+            background: linear-gradient(135deg, var(--fuschia), var(--orange));
+            color: var(--white);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75em;
+            font-weight: 600;
+            border: none;
+            width: 100%;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .shuffle-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 10px rgba(233, 30, 99, 0.4);
+        }
+
+        .history-controls {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 8px;
+        }
+
+        .history-btn {
+            background: rgba(0, 0, 0, 0.1);
+            color: #2D2D2D;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75em;
+            font-weight: 600;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            flex: 1;
+            text-align: center;
+        }
+
+        .history-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .history-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .save-color-btn {
+            background: linear-gradient(135deg, #2ECC71, #27AE60);
+            color: var(--white);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75em;
+            font-weight: 600;
+            border: none;
+            width: 100%;
+            text-align: center;
+        }
+
+        .save-color-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 10px rgba(46, 204, 113, 0.4);
+        }
+
+        .save-color-btn.saved {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+        }
+
+        .shuffle-count {
+            color: #666;
+            font-size: 0.7em;
+            text-align: center;
+            padding: 4px;
+            margin-bottom: 6px;
         }
 
         /* Component Container - Add position relative to parent sections */
@@ -1063,6 +1202,16 @@
                         <span class="feedback-label-text">I suggest changes on this component</span>
                     </label>
                     <div class="feedback-submitted">Thank you! Feedback saved.</div>
+                    
+                    <div class="component-color-controls">
+                        <button class="shuffle-btn" onclick="shuffleComponentColors('hero')">Shuffle Colors</button>
+                        <div class="shuffle-count" id="shuffle-count-hero">Original</div>
+                        <div class="history-controls">
+                            <button class="history-btn" id="back-hero" onclick="navigateColorHistory('hero', -1)" disabled>← Back</button>
+                            <button class="history-btn" id="forward-hero" onclick="navigateColorHistory('hero', 1)" disabled>Forward →</button>
+                        </div>
+                        <button class="save-color-btn" id="save-hero" onclick="saveComponentColors('hero')">Save this color combo</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1097,6 +1246,16 @@
                         <span class="feedback-label-text">I suggest changes on this component</span>
                     </label>
                     <div class="feedback-submitted">Thank you! Feedback saved.</div>
+                    
+                    <div class="component-color-controls">
+                        <button class="shuffle-btn" onclick="shuffleComponentColors('about')">Shuffle Colors</button>
+                        <div class="shuffle-count" id="shuffle-count-about">Original</div>
+                        <div class="history-controls">
+                            <button class="history-btn" id="back-about" onclick="navigateColorHistory('about', -1)" disabled>← Back</button>
+                            <button class="history-btn" id="forward-about" onclick="navigateColorHistory('about', 1)" disabled>Forward →</button>
+                        </div>
+                        <button class="save-color-btn" id="save-about" onclick="saveComponentColors('about')">Save this color combo</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1136,6 +1295,16 @@
                         <span class="feedback-label-text">I suggest changes on this component</span>
                     </label>
                     <div class="feedback-submitted">Thank you! Feedback saved.</div>
+                    
+                    <div class="component-color-controls">
+                        <button class="shuffle-btn" onclick="shuffleComponentColors('services')">Shuffle Colors</button>
+                        <div class="shuffle-count" id="shuffle-count-services">Original</div>
+                        <div class="history-controls">
+                            <button class="history-btn" id="back-services" onclick="navigateColorHistory('services', -1)" disabled>← Back</button>
+                            <button class="history-btn" id="forward-services" onclick="navigateColorHistory('services', 1)" disabled>Forward →</button>
+                        </div>
+                        <button class="save-color-btn" id="save-services" onclick="saveComponentColors('services')">Save this color combo</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1191,6 +1360,16 @@
                         <span class="feedback-label-text">I suggest changes on this component</span>
                     </label>
                     <div class="feedback-submitted">Thank you! Feedback saved.</div>
+                    
+                    <div class="component-color-controls">
+                        <button class="shuffle-btn" onclick="shuffleComponentColors('work')">Shuffle Colors</button>
+                        <div class="shuffle-count" id="shuffle-count-work">Original</div>
+                        <div class="history-controls">
+                            <button class="history-btn" id="back-work" onclick="navigateColorHistory('work', -1)" disabled>← Back</button>
+                            <button class="history-btn" id="forward-work" onclick="navigateColorHistory('work', 1)" disabled>Forward →</button>
+                        </div>
+                        <button class="save-color-btn" id="save-work" onclick="saveComponentColors('work')">Save this color combo</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1263,6 +1442,16 @@
                         <span class="feedback-label-text">I suggest changes on this component</span>
                     </label>
                     <div class="feedback-submitted">Thank you! Feedback saved.</div>
+                    
+                    <div class="component-color-controls">
+                        <button class="shuffle-btn" onclick="shuffleComponentColors('blog')">Shuffle Colors</button>
+                        <div class="shuffle-count" id="shuffle-count-blog">Original</div>
+                        <div class="history-controls">
+                            <button class="history-btn" id="back-blog" onclick="navigateColorHistory('blog', -1)" disabled>← Back</button>
+                            <button class="history-btn" id="forward-blog" onclick="navigateColorHistory('blog', 1)" disabled>Forward →</button>
+                        </div>
+                        <button class="save-color-btn" id="save-blog" onclick="saveComponentColors('blog')">Save this color combo</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1294,6 +1483,16 @@
                         <span class="feedback-label-text">I suggest changes on this component</span>
                     </label>
                     <div class="feedback-submitted">Thank you! Feedback saved.</div>
+                    
+                    <div class="component-color-controls">
+                        <button class="shuffle-btn" onclick="shuffleComponentColors('cta')">Shuffle Colors</button>
+                        <div class="shuffle-count" id="shuffle-count-cta">Original</div>
+                        <div class="history-controls">
+                            <button class="history-btn" id="back-cta" onclick="navigateColorHistory('cta', -1)" disabled>← Back</button>
+                            <button class="history-btn" id="forward-cta" onclick="navigateColorHistory('cta', 1)" disabled>Forward →</button>
+                        </div>
+                        <button class="save-color-btn" id="save-cta" onclick="saveComponentColors('cta')">Save this color combo</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1357,6 +1556,169 @@
         // ===== FEEDBACK SYSTEM CONFIGURATION =====
         const LAYOUT_VERSION = 'layout-option-3-sidebar'; // Update this for each layout version
         const API_BASE_URL = 'api/feedback.php'; // Adjust path as needed for your SiteWorks setup
+
+        // ===== COMPONENT COLOR SHUFFLE SYSTEM =====
+        const componentColors = ['#FF1493', '#E91E63', '#FF6B35', '#FF8C42', '#FFD23F', '#FFF4D6', '#000000', '#FFFFFF'];
+        const componentColorHistory = {};
+        const componentHistoryIndex = {};
+
+        // Component-to-selector mapping
+        const componentSelectors = {
+            'hero': '.hero-section',
+            'about': '.about-section',
+            'services': '.services-section',
+            'work': '.portfolio-section',
+            'blog': '.blog-section',
+            'cta': '.cta-section'
+        };
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function getContrastColor(hexColor) {
+            const r = parseInt(hexColor.substr(1, 2), 16);
+            const g = parseInt(hexColor.substr(3, 2), 16);
+            const b = parseInt(hexColor.substr(5, 2), 16);
+            const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+            return luminance > 0.5 ? '#2D2D2D' : '#FFFFFF';
+        }
+
+        function shuffleComponentColors(componentName) {
+            if (!componentColorHistory[componentName]) {
+                componentColorHistory[componentName] = [];
+                componentHistoryIndex[componentName] = -1;
+            }
+
+            const shuffledColors = shuffleArray(componentColors);
+            const bgColor = shuffledColors[0];
+            const textColor = getContrastColor(bgColor);
+
+            // Save to history
+            componentColorHistory[componentName].push({
+                background: bgColor,
+                text: textColor,
+                timestamp: new Date().toISOString()
+            });
+            componentHistoryIndex[componentName] = componentColorHistory[componentName].length - 1;
+
+            // Apply colors
+            applyComponentColors(componentName, bgColor, textColor);
+
+            // Update UI
+            updateColorControls(componentName);
+        }
+
+        function applyComponentColors(componentName, bgColor, textColor) {
+            const selector = componentSelectors[componentName];
+            const component = document.querySelector(selector);
+            
+            if (component) {
+                component.style.background = bgColor;
+                component.style.color = textColor;
+
+                // Apply to all text elements
+                const textElements = component.querySelectorAll('h1, h2, h3, h4, h5, h6, p, a, span, div, label, button');
+                textElements.forEach(el => {
+                    const elBg = window.getComputedStyle(el).backgroundColor;
+                    if (elBg === 'rgba(0, 0, 0, 0)' || elBg === 'transparent') {
+                        el.style.color = textColor;
+                    }
+                });
+            }
+        }
+
+        function navigateColorHistory(componentName, direction) {
+            if (!componentColorHistory[componentName] || componentColorHistory[componentName].length === 0) return;
+
+            const newIndex = componentHistoryIndex[componentName] + direction;
+            if (newIndex < 0 || newIndex >= componentColorHistory[componentName].length) return;
+
+            componentHistoryIndex[componentName] = newIndex;
+            const colorCombo = componentColorHistory[componentName][newIndex];
+
+            applyComponentColors(componentName, colorCombo.background, colorCombo.text);
+            updateColorControls(componentName);
+        }
+
+        function updateColorControls(componentName) {
+            const count = componentColorHistory[componentName] ? componentColorHistory[componentName].length : 0;
+            const currentIndex = componentHistoryIndex[componentName] !== undefined ? componentHistoryIndex[componentName] : -1;
+
+            // Update shuffle count
+            const countLabel = document.getElementById(`shuffle-count-${componentName}`);
+            if (countLabel) {
+                countLabel.textContent = count > 0 ? `Shuffle ${currentIndex + 1}` : 'Original';
+            }
+
+            // Update back button
+            const backBtn = document.getElementById(`back-${componentName}`);
+            if (backBtn) {
+                backBtn.disabled = currentIndex <= 0;
+            }
+
+            // Update forward button
+            const forwardBtn = document.getElementById(`forward-${componentName}`);
+            if (forwardBtn) {
+                forwardBtn.disabled = currentIndex >= count - 1;
+            }
+        }
+
+        function saveComponentColors(componentName) {
+            if (!componentColorHistory[componentName] || componentHistoryIndex[componentName] < 0) {
+                alert('Please shuffle colors first before saving.');
+                return;
+            }
+
+            const currentColorCombo = componentColorHistory[componentName][componentHistoryIndex[componentName]];
+            const saveBtn = document.getElementById(`save-${componentName}`);
+
+            const feedbackData = {
+                layout_version: LAYOUT_VERSION,
+                component_name: componentName,
+                feedback_type: 'color_preference',
+                additional_comments: JSON.stringify({
+                    background: currentColorCombo.background,
+                    text: currentColorCombo.text,
+                    shuffle_number: componentHistoryIndex[componentName] + 1,
+                    total_shuffles: componentColorHistory[componentName].length
+                }),
+                client_name: null,
+                client_email: null
+            };
+
+            fetch(API_BASE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(feedbackData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    saveBtn.classList.add('saved');
+                    saveBtn.textContent = 'Saved!';
+                    setTimeout(() => {
+                        saveBtn.classList.remove('saved');
+                        saveBtn.textContent = 'Save this color combo';
+                    }, 2000);
+                    console.log('Color combination saved:', data);
+                } else {
+                    console.error('Color save failed:', data.message);
+                    alert('Failed to save color combination. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error saving color combination:', error);
+                alert('Error connecting to feedback system. Please check your connection.');
+            });
+        }
 
         // Color Theme System - 10 predefined themes using client's selected colors only
         const colorThemes = [
