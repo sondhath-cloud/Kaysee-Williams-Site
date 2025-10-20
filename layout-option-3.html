@@ -876,6 +876,82 @@
             display: block;
         }
 
+        /* Feedback Icons */
+        .feedback-icons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .feedback-icon-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .feedback-icon-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: #FFD700;
+            transform: scale(1.1);
+        }
+
+        .feedback-icon-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Comment Field */
+        .comment-field {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .comment-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #2D2D2D;
+            font-size: 0.85em;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .comment-field textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+        }
+
+        .submit-comment-btn {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #2D2D2D;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .submit-comment-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 10px rgba(255, 215, 0, 0.4);
+        }
+
         /* Component Color Shuffle Controls */
         .component-color-controls {
             margin-top: 12px;
@@ -1148,11 +1224,6 @@
             <a href="index.html" class="banner-layout-selector-btn">← Return to Layout Selector</a>
         </div>
         <div class="banner-title">Layout Option 3 - Sidebar Navigation</div>
-        <div class="banner-theme-controls">
-            <button class="banner-theme-btn" onclick="cycleTheme()">Shuffle Colors</button>
-            <div class="banner-theme-label" id="bannerThemeLabel">Original</div>
-            <button class="banner-theme-btn" id="bannerThemeLikeBtn" onclick="saveThemePreference()">I like this</button>
-        </div>
     </div>
 
     <!-- Fixed Sidebar Navigation -->
@@ -1193,22 +1264,22 @@
                     <div class="feedback-toggle">−</div>
                 </div>
                 <div class="feedback-content">
-                    <label class="feedback-label">
-                        <input type="radio" name="feedback-hero" value="like" class="feedback-radio" onchange="submitFeedback('hero', 'like')">
-                        <span class="feedback-label-text">I like this component layout</span>
-                    </label>
-                    <label class="feedback-label">
-                        <input type="radio" name="feedback-hero" value="suggest" class="feedback-radio" onchange="submitFeedback('hero', 'suggest_changes')">
-                        <span class="feedback-label-text">I suggest changes on this component</span>
-                    </label>
+                    <div class="feedback-icons">
+                        <button class="feedback-icon-btn" onclick="submitFeedback('hero', 'like')" title="I like this component layout">❤️</button>
+                        <button class="feedback-icon-btn" onclick="toggleCommentField('hero')" title="I suggest changes on this component">❓</button>
+                    </div>
+                    <div class="comment-field" id="comment-field-hero" style="display: none;">
+                        <textarea placeholder="Please describe your suggestions..." rows="3"></textarea>
+                        <button class="submit-comment-btn" onclick="submitComment('hero')">Submit</button>
+                    </div>
                     <div class="feedback-submitted">Thank you! Feedback saved.</div>
                     
                     <div class="component-color-controls">
                         <button class="shuffle-btn" onclick="shuffleComponentColors('hero')">Shuffle Colors</button>
                         <div class="shuffle-count" id="shuffle-count-hero">Original</div>
                         <div class="history-controls">
-                            <button class="history-btn" id="back-hero" onclick="navigateColorHistory('hero', -1)" disabled>← Back</button>
-                            <button class="history-btn" id="forward-hero" onclick="navigateColorHistory('hero', 1)" disabled>Forward →</button>
+                            <button class="history-btn" id="back-hero" onclick="navigateColorHistory('hero', -1)" disabled>←</button>
+                            <button class="history-btn" id="forward-hero" onclick="navigateColorHistory('hero', 1)" disabled>→</button>
                         </div>
                         <button class="save-color-btn" id="save-hero" onclick="saveComponentColors('hero')">Save this color combo</button>
                     </div>
@@ -1237,22 +1308,22 @@
                     <div class="feedback-toggle">−</div>
                 </div>
                 <div class="feedback-content">
-                    <label class="feedback-label">
-                        <input type="radio" name="feedback-about" value="like" class="feedback-radio" onchange="submitFeedback('about', 'like')">
-                        <span class="feedback-label-text">I like this component layout</span>
-                    </label>
-                    <label class="feedback-label">
-                        <input type="radio" name="feedback-about" value="suggest" class="feedback-radio" onchange="submitFeedback('about', 'suggest_changes')">
-                        <span class="feedback-label-text">I suggest changes on this component</span>
-                    </label>
+                    <div class="feedback-icons">
+                        <button class="feedback-icon-btn" onclick="submitFeedback('about', 'like')" title="I like this component layout">❤️</button>
+                        <button class="feedback-icon-btn" onclick="toggleCommentField('about')" title="I suggest changes on this component">❓</button>
+                    </div>
+                    <div class="comment-field" id="comment-field-about" style="display: none;">
+                        <textarea placeholder="Please describe your suggestions..." rows="3"></textarea>
+                        <button class="submit-comment-btn" onclick="submitComment('about')">Submit</button>
+                    </div>
                     <div class="feedback-submitted">Thank you! Feedback saved.</div>
                     
                     <div class="component-color-controls">
                         <button class="shuffle-btn" onclick="shuffleComponentColors('about')">Shuffle Colors</button>
                         <div class="shuffle-count" id="shuffle-count-about">Original</div>
                         <div class="history-controls">
-                            <button class="history-btn" id="back-about" onclick="navigateColorHistory('about', -1)" disabled>← Back</button>
-                            <button class="history-btn" id="forward-about" onclick="navigateColorHistory('about', 1)" disabled>Forward →</button>
+                            <button class="history-btn" id="back-about" onclick="navigateColorHistory('about', -1)" disabled>←</button>
+                            <button class="history-btn" id="forward-about" onclick="navigateColorHistory('about', 1)" disabled>→</button>
                         </div>
                         <button class="save-color-btn" id="save-about" onclick="saveComponentColors('about')">Save this color combo</button>
                     </div>
@@ -1286,22 +1357,22 @@
                     <div class="feedback-toggle">−</div>
                 </div>
                 <div class="feedback-content">
-                    <label class="feedback-label">
-                        <input type="radio" name="feedback-services" value="like" class="feedback-radio" onchange="submitFeedback('services', 'like')">
-                        <span class="feedback-label-text">I like this component layout</span>
-                    </label>
-                    <label class="feedback-label">
-                        <input type="radio" name="feedback-services" value="suggest" class="feedback-radio" onchange="submitFeedback('services', 'suggest_changes')">
-                        <span class="feedback-label-text">I suggest changes on this component</span>
-                    </label>
+                    <div class="feedback-icons">
+                        <button class="feedback-icon-btn" onclick="submitFeedback('services', 'like')" title="I like this component layout">❤️</button>
+                        <button class="feedback-icon-btn" onclick="toggleCommentField('services')" title="I suggest changes on this component">❓</button>
+                    </div>
+                    <div class="comment-field" id="comment-field-services" style="display: none;">
+                        <textarea placeholder="Please describe your suggestions..." rows="3"></textarea>
+                        <button class="submit-comment-btn" onclick="submitComment('services')">Submit</button>
+                    </div>
                     <div class="feedback-submitted">Thank you! Feedback saved.</div>
                     
                     <div class="component-color-controls">
                         <button class="shuffle-btn" onclick="shuffleComponentColors('services')">Shuffle Colors</button>
                         <div class="shuffle-count" id="shuffle-count-services">Original</div>
                         <div class="history-controls">
-                            <button class="history-btn" id="back-services" onclick="navigateColorHistory('services', -1)" disabled>← Back</button>
-                            <button class="history-btn" id="forward-services" onclick="navigateColorHistory('services', 1)" disabled>Forward →</button>
+                            <button class="history-btn" id="back-services" onclick="navigateColorHistory('services', -1)" disabled>←</button>
+                            <button class="history-btn" id="forward-services" onclick="navigateColorHistory('services', 1)" disabled>→</button>
                         </div>
                         <button class="save-color-btn" id="save-services" onclick="saveComponentColors('services')">Save this color combo</button>
                     </div>
@@ -1351,22 +1422,22 @@
                     <div class="feedback-toggle">−</div>
                 </div>
                 <div class="feedback-content">
-                    <label class="feedback-label">
-                        <input type="radio" name="feedback-work" value="like" class="feedback-radio" onchange="submitFeedback('work', 'like')">
-                        <span class="feedback-label-text">I like this component layout</span>
-                    </label>
-                    <label class="feedback-label">
-                        <input type="radio" name="feedback-work" value="suggest" class="feedback-radio" onchange="submitFeedback('work', 'suggest_changes')">
-                        <span class="feedback-label-text">I suggest changes on this component</span>
-                    </label>
+                    <div class="feedback-icons">
+                        <button class="feedback-icon-btn" onclick="submitFeedback('work', 'like')" title="I like this component layout">❤️</button>
+                        <button class="feedback-icon-btn" onclick="toggleCommentField('work')" title="I suggest changes on this component">❓</button>
+                    </div>
+                    <div class="comment-field" id="comment-field-work" style="display: none;">
+                        <textarea placeholder="Please describe your suggestions..." rows="3"></textarea>
+                        <button class="submit-comment-btn" onclick="submitComment('work')">Submit</button>
+                    </div>
                     <div class="feedback-submitted">Thank you! Feedback saved.</div>
                     
                     <div class="component-color-controls">
                         <button class="shuffle-btn" onclick="shuffleComponentColors('work')">Shuffle Colors</button>
                         <div class="shuffle-count" id="shuffle-count-work">Original</div>
                         <div class="history-controls">
-                            <button class="history-btn" id="back-work" onclick="navigateColorHistory('work', -1)" disabled>← Back</button>
-                            <button class="history-btn" id="forward-work" onclick="navigateColorHistory('work', 1)" disabled>Forward →</button>
+                            <button class="history-btn" id="back-work" onclick="navigateColorHistory('work', -1)" disabled>←</button>
+                            <button class="history-btn" id="forward-work" onclick="navigateColorHistory('work', 1)" disabled>→</button>
                         </div>
                         <button class="save-color-btn" id="save-work" onclick="saveComponentColors('work')">Save this color combo</button>
                     </div>
@@ -1433,22 +1504,22 @@
                     <div class="feedback-toggle">−</div>
                 </div>
                 <div class="feedback-content">
-                    <label class="feedback-label">
-                        <input type="radio" name="feedback-blog" value="like" class="feedback-radio" onchange="submitFeedback('blog', 'like')">
-                        <span class="feedback-label-text">I like this component layout</span>
-                    </label>
-                    <label class="feedback-label">
-                        <input type="radio" name="feedback-blog" value="suggest" class="feedback-radio" onchange="submitFeedback('blog', 'suggest_changes')">
-                        <span class="feedback-label-text">I suggest changes on this component</span>
-                    </label>
+                    <div class="feedback-icons">
+                        <button class="feedback-icon-btn" onclick="submitFeedback('blog', 'like')" title="I like this component layout">❤️</button>
+                        <button class="feedback-icon-btn" onclick="toggleCommentField('blog')" title="I suggest changes on this component">❓</button>
+                    </div>
+                    <div class="comment-field" id="comment-field-blog" style="display: none;">
+                        <textarea placeholder="Please describe your suggestions..." rows="3"></textarea>
+                        <button class="submit-comment-btn" onclick="submitComment('blog')">Submit</button>
+                    </div>
                     <div class="feedback-submitted">Thank you! Feedback saved.</div>
                     
                     <div class="component-color-controls">
                         <button class="shuffle-btn" onclick="shuffleComponentColors('blog')">Shuffle Colors</button>
                         <div class="shuffle-count" id="shuffle-count-blog">Original</div>
                         <div class="history-controls">
-                            <button class="history-btn" id="back-blog" onclick="navigateColorHistory('blog', -1)" disabled>← Back</button>
-                            <button class="history-btn" id="forward-blog" onclick="navigateColorHistory('blog', 1)" disabled>Forward →</button>
+                            <button class="history-btn" id="back-blog" onclick="navigateColorHistory('blog', -1)" disabled>←</button>
+                            <button class="history-btn" id="forward-blog" onclick="navigateColorHistory('blog', 1)" disabled>→</button>
                         </div>
                         <button class="save-color-btn" id="save-blog" onclick="saveComponentColors('blog')">Save this color combo</button>
                     </div>
@@ -1474,22 +1545,22 @@
                     <div class="feedback-toggle">−</div>
                 </div>
                 <div class="feedback-content">
-                    <label class="feedback-label">
-                        <input type="radio" name="feedback-cta" value="like" class="feedback-radio" onchange="submitFeedback('cta', 'like')">
-                        <span class="feedback-label-text">I like this component layout</span>
-                    </label>
-                    <label class="feedback-label">
-                        <input type="radio" name="feedback-cta" value="suggest" class="feedback-radio" onchange="submitFeedback('cta', 'suggest_changes')">
-                        <span class="feedback-label-text">I suggest changes on this component</span>
-                    </label>
+                    <div class="feedback-icons">
+                        <button class="feedback-icon-btn" onclick="submitFeedback('cta', 'like')" title="I like this component layout">❤️</button>
+                        <button class="feedback-icon-btn" onclick="toggleCommentField('cta')" title="I suggest changes on this component">❓</button>
+                    </div>
+                    <div class="comment-field" id="comment-field-cta" style="display: none;">
+                        <textarea placeholder="Please describe your suggestions..." rows="3"></textarea>
+                        <button class="submit-comment-btn" onclick="submitComment('cta')">Submit</button>
+                    </div>
                     <div class="feedback-submitted">Thank you! Feedback saved.</div>
                     
                     <div class="component-color-controls">
                         <button class="shuffle-btn" onclick="shuffleComponentColors('cta')">Shuffle Colors</button>
                         <div class="shuffle-count" id="shuffle-count-cta">Original</div>
                         <div class="history-controls">
-                            <button class="history-btn" id="back-cta" onclick="navigateColorHistory('cta', -1)" disabled>← Back</button>
-                            <button class="history-btn" id="forward-cta" onclick="navigateColorHistory('cta', 1)" disabled>Forward →</button>
+                            <button class="history-btn" id="back-cta" onclick="navigateColorHistory('cta', -1)" disabled>←</button>
+                            <button class="history-btn" id="forward-cta" onclick="navigateColorHistory('cta', 1)" disabled>→</button>
                         </div>
                         <button class="save-color-btn" id="save-cta" onclick="saveComponentColors('cta')">Save this color combo</button>
                     </div>
@@ -1987,6 +2058,81 @@
             })
             .catch(error => {
                 console.error('Error submitting feedback:', error);
+                alert('Error connecting to feedback system. Please check your connection.');
+            });
+        }
+
+        // Toggle Comment Field
+        function toggleCommentField(componentName) {
+            const commentField = document.getElementById(`comment-field-${componentName}`);
+            if (commentField) {
+                const isVisible = commentField.style.display !== 'none';
+                commentField.style.display = isVisible ? 'none' : 'block';
+                
+                if (!isVisible) {
+                    // Focus on textarea when showing
+                    const textarea = commentField.querySelector('textarea');
+                    if (textarea) {
+                        setTimeout(() => textarea.focus(), 100);
+                    }
+                }
+            }
+        }
+
+        // Submit Comment
+        function submitComment(componentName) {
+            const commentField = document.getElementById(`comment-field-${componentName}`);
+            const textarea = commentField.querySelector('textarea');
+            const comment = textarea.value.trim();
+            
+            if (!comment) {
+                alert('Please enter your suggestions before submitting.');
+                return;
+            }
+
+            const feedbackData = {
+                layout_version: LAYOUT_VERSION,
+                component_name: componentName,
+                feedback_type: 'suggest_changes',
+                additional_comments: comment,
+                client_name: null,
+                client_email: null
+            };
+
+            // Send feedback to API
+            fetch(API_BASE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(feedbackData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Clear textarea and hide comment field
+                    textarea.value = '';
+                    commentField.style.display = 'none';
+                    
+                    // Show success message
+                    const card = document.querySelector(`#feedback-${componentName}`);
+                    if (card) {
+                        const successMsg = card.querySelector('.feedback-submitted');
+                        if (successMsg) {
+                            successMsg.classList.add('show');
+                            setTimeout(() => {
+                                successMsg.classList.remove('show');
+                            }, 3000);
+                        }
+                    }
+                    console.log('Comment saved:', data);
+                } else {
+                    console.error('Comment submission failed:', data.message);
+                    alert('Failed to save comment. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting comment:', error);
                 alert('Error connecting to feedback system. Please check your connection.');
             });
         }
