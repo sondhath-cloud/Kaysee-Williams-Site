@@ -1,11 +1,11 @@
 <?php
 // Database Configuration for SiteWorks Hosting
-// Update these values with your actual SiteWorks database credentials
+// Updated with actual SiteWorks database credentials
 
 $host = 'localhost'; // Usually 'localhost' on SiteWorks
 $dbname = 'sondraha_kaysee-williams-site'; // Your database name from cPanel
 $username = 'sondraha_kaysee-williams-site'; // Your database username
-$password = 'WcwCyQcjfFSD8VSs25pL'; // Your database password
+$password = 'vynqym-fybRa4-pefmok'; // Your database password
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);

@@ -3,152 +3,1828 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaysee Williams - Website Layout Options</title>
+    <title>Kaysee Williams - Educator & Advocate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@400;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            --hot-pink: #FF1493;
+            --fuschia: #E91E63;
+            --orange: #FF6B35;
+            --bright-orange: #FF8C42;
+            --yellow: #FFD23F;
+            --light-yellow: #FFF4D6;
+            --dark-gray: #2D2D2D;
+            --medium-gray: #666;
+            --light-gray: #F5F5F5;
+            --white: #FFFFFF;
+            transition: all 0.5s ease;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #FF1493, #FF8C00);
-            min-height: 100vh;
+            background: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Script Font for Headers */
+        h1, h2, h3, .hero-heading, .section-heading, .cta-heading, 
+        .content-heading, .footer-logo, .blog-post-title {
+            font-family: 'Pacifico', cursive;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        /* Smooth Transitions */
+        a, button, .nav-link, .hero-button, .cta-btn-primary, .cta-btn-secondary,
+        .portfolio-card, .blog-card, .social-icon,
+        .cookie-btn, .header-cta, .feature-card {
+            transition: all 0.3s ease;
+        }
+
+        /* MAGAZINE LAYOUT - Top Horizontal Navigation Bar */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(255, 20, 147, 0.15);
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.2em;
+            color: var(--fuschia);
+            padding: 10px 0 15px 0;
+            line-height: 1.3;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--dark-gray);
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: var(--fuschia);
+            border-bottom: 3px solid var(--fuschia);
+        }
+
+        .high-contrast-btn {
+            background: var(--dark-gray);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.75em;
+            font-weight: 600;
+            border: none;
+            white-space: nowrap;
+        }
+
+        .high-contrast-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            background: var(--medium-gray);
+        }
+
+        /* Admin Mode Styles */
+        .admin-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--fuschia);
+            color: var(--white);
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            border: none;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .admin-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+            background: var(--hot-pink);
+        }
+
+        .backup-btn {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background: var(--orange);
+            color: var(--white);
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 600;
+            border: none;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .backup-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+            background: var(--bright-orange);
+        }
+
+        .admin-mode .backup-btn {
+            display: block;
+        }
+
+        .admin-mode {
+            --admin-border: 2px dashed var(--fuschia);
+        }
+
+        .admin-mode .editable {
+            position: relative;
+            border: var(--admin-border);
+            border-radius: 8px;
+            padding: 8px;
+            margin: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .admin-mode .editable:hover {
+            background: rgba(233, 30, 99, 0.1);
+            border-color: var(--hot-pink);
+        }
+
+        .admin-mode .editable::after {
+            content: "✏️";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--fuschia);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.7em;
+            cursor: pointer;
+        }
+
+        .admin-mode .image-container {
+            position: relative;
+            border: var(--admin-border);
+            border-radius: 8px;
+            padding: 8px;
+            margin: 4px;
+        }
+
+        .admin-mode .image-container::after {
+            content: "📷";
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--orange);
             color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7em;
+            cursor: pointer;
         }
-        
-        .container {
-            text-align: center;
-            max-width: 800px;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+        .admin-mode .image-container:hover {
+            background: rgba(255, 107, 53, 0.1);
         }
-        
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+        .edit-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
         }
-        
-        .subtitle {
-            font-size: 1.3em;
-            margin-bottom: 40px;
-            opacity: 0.9;
+
+        .edit-modal.active {
+            display: flex;
         }
-        
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .option-card {
-            background: rgba(255, 255, 255, 0.15);
+
+        .edit-modal-content {
+            background: white;
             padding: 30px;
             border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: white;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-        
-        .option-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .option-title {
+
+        .edit-modal h3 {
+            color: var(--fuschia);
+            margin-bottom: 20px;
             font-size: 1.5em;
-            margin-bottom: 15px;
-            font-weight: bold;
         }
-        
-        .option-description {
-            font-size: 1.1em;
-            opacity: 0.9;
-            line-height: 1.5;
+
+        .edit-modal textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1em;
+            resize: vertical;
+            margin-bottom: 20px;
         }
-        
-        .admin-link {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px 30px;
-            border-radius: 10px;
-            text-decoration: none;
+
+        .edit-modal textarea:focus {
+            outline: none;
+            border-color: var(--fuschia);
+        }
+
+        .edit-modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        .edit-btn {
+            background: var(--fuschia);
             color: white;
-            font-weight: bold;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
-        
-        .admin-link:hover {
-            background: rgba(255, 255, 255, 0.3);
+
+        .edit-btn:hover {
+            background: var(--hot-pink);
             transform: translateY(-2px);
         }
-        
-        .instructions {
-            margin-top: 30px;
+
+        .edit-btn.secondary {
+            background: #666;
+        }
+
+        .edit-btn.secondary:hover {
+            background: #555;
+        }
+
+        .image-upload-area {
+            border: 2px dashed var(--orange);
+            border-radius: 8px;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload-area:hover {
+            background: rgba(255, 107, 53, 0.1);
+            border-color: var(--hot-pink);
+        }
+
+        .image-upload-area.dragover {
+            background: rgba(255, 107, 53, 0.2);
+            border-color: var(--hot-pink);
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .remove-image-btn {
+            background: #dc3545;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
             font-size: 0.9em;
-            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .remove-image-btn:hover {
+            background: #c82333;
+        }
+
+        /* Additional Portfolio Responsive Breakpoints */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .portfolio-masonry {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+
+        @media (min-width: 1025px) and (max-width: 1399px) {
+            .portfolio-masonry {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .portfolio-masonry {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 35px;
+            }
+        }
+
+        /* High Contrast Mode Styles */
+        .high-contrast {
+            --hot-pink: #000000;
+            --fuschia: #000000;
+            --orange: #000000;
+            --bright-orange: #000000;
+            --yellow: #000000;
+            --light-yellow: #FFFFFF;
+            --dark-gray: #000000;
+            --medium-gray: #000000;
+            --light-gray: #FFFFFF;
+            --white: #FFFFFF;
+        }
+
+        .high-contrast .nav-link {
+            background: rgba(255, 255, 255, 0.9);
+            color: #000000;
+            border: 2px solid #000000;
+        }
+
+        .high-contrast .nav-link:hover {
+            background: #000000;
+            color: #FFFFFF;
+        }
+
+        .site-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: var(--white);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* ASYMMETRIC HERO - Magazine Style */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            min-height: 650px;
+            position: relative;
+        }
+
+        .hero-main {
+            background: linear-gradient(135deg, var(--hot-pink) 0%, var(--fuschia) 100%);
+            padding: 100px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-heading {
+            font-size: 4em;
+            color: var(--white);
+            margin-bottom: 30px;
+            padding: 15px 20px 25px 20px;
+            line-height: 1.2;
+        }
+
+        .hero-text {
+            color: var(--white);
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .hero-button {
+            background: var(--yellow);
+            color: var(--dark-gray);
+            padding: 18px 50px;
+            border-radius: 50px;
+            width: fit-content;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1em;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        .hero-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: var(--bright-orange);
+            color: var(--white);
+        }
+
+        .hero-sidebar {
+            background: var(--orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2em;
+            font-weight: 600;
+            text-align: center;
+            padding: 40px;
+        }
+
+        /* MAGAZINE ABOUT SECTION - Offset Grid */
+        .about-section {
+            padding: 100px 80px;
+            background: var(--light-yellow);
+            position: relative;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image-wrap {
+            position: relative;
+        }
+
+        .about-image {
+            background: var(--fuschia);
+            padding: 60px 40px;
+            border-radius: 20px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.8em;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .about-content h2 {
+            font-size: 3.5em;
+            color: var(--fuschia);
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        /* ASYMMETRIC SERVICES - Magazine Cards */
+        .services-section {
+            padding: 100px 80px;
+            background: var(--light-gray);
+            position: relative;
+        }
+
+        .section-heading {
+            font-size: 3.5em;
+            color: var(--fuschia);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-subheading {
+            text-align: center;
+            color: var(--dark-gray);
+            font-size: 1.2em;
+            margin-bottom: 60px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+        }
+
+        .feature-card:first-child {
+            grid-row: span 2;
+            background: var(--orange);
+            color: var(--white);
+        }
+
+        .feature-card:nth-child(2) {
+            background: var(--yellow);
+            color: var(--dark-gray);
+        }
+
+        .feature-card:nth-child(3) {
+            background: var(--fuschia);
+            color: var(--white);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .feature-card:first-child .card-title {
+            color: var(--white);
+        }
+
+        .feature-card:nth-child(2) .card-title {
+            color: var(--orange);
+        }
+
+        .feature-card:nth-child(3) .card-title {
+            color: var(--white);
+        }
+
+        .card-text {
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+
+        .feature-card:first-child .card-text {
+            color: var(--white);
+            opacity: 0.95;
+        }
+
+        .feature-card:nth-child(2) .card-text {
+            color: var(--dark-gray);
+        }
+
+        .feature-card:nth-child(3) .card-text {
+            color: var(--white);
+            opacity: 0.95;
+        }
+
+        /* MASONRY PORTFOLIO - Pinterest Style */
+        .portfolio-section {
+            padding: 100px 80px;
+            background: var(--white);
+            position: relative;
+        }
+
+        .portfolio-masonry {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .portfolio-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .portfolio-image {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.3em;
+        }
+
+        .portfolio-card:nth-child(1) .portfolio-image {
+            background: var(--hot-pink);
+            color: var(--white);
+        }
+
+        .portfolio-card:nth-child(2) .portfolio-image {
+            background: var(--yellow);
+            color: var(--dark-gray);
+            height: 300px;
+        }
+
+        .portfolio-card:nth-child(3) .portfolio-image {
+            background: var(--fuschia);
+            color: var(--white);
+        }
+
+        .portfolio-card:nth-child(4) .portfolio-image {
+            background: var(--orange);
+            color: var(--white);
+            height: 200px;
+        }
+
+        .portfolio-info {
+            padding: 30px;
+            background: var(--white);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portfolio-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8em;
+            color: var(--fuschia);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .portfolio-desc {
+            color: var(--dark-gray);
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+
+        /* MAGAZINE BLOG - Featured + Grid */
+        .blog-section {
+            padding: 100px 80px;
+            background: var(--white);
+            position: relative;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .blog-featured {
+            background: var(--light-yellow);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+        }
+
+        .blog-featured:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .blog-featured-image {
+            background: var(--fuschia);
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        .blog-featured-content {
+            padding: 40px;
+            background: var(--light-yellow);
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .blog-date {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .blog-category {
+            color: var(--fuschia);
+            font-weight: 600;
+        }
+
+        .blog-post-title {
+            font-size: 2.2em;
+            color: var(--fuschia);
+            margin-bottom: 20px;
+        }
+
+        .blog-excerpt {
+            color: var(--dark-gray);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .blog-read-more {
+            color: var(--orange);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-read-more:hover {
+            color: var(--fuschia);
+        }
+
+        .blog-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .blog-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            border-left: 4px solid var(--orange);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border-left-color: var(--fuschia);
+        }
+
+        .blog-card .blog-post-title {
+            font-size: 1.3em;
+        }
+
+        .blog-card .blog-excerpt {
+            color: var(--dark-gray);
+        }
+
+        /* CTA SECTION - Full Width Offset */
+        .cta-section {
+            background: var(--orange);
+            padding: 120px 80px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .cta-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cta-heading {
+            font-size: 3.8em;
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+
+        .cta-text {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--yellow), var(--bright-orange));
+            color: var(--dark-gray);
+            padding: 18px 50px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1em;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: var(--yellow);
+        }
+
+        .cta-btn-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 18px 50px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1em;
+            border: 3px solid var(--white);
+        }
+
+        .cta-btn-secondary:hover {
+            background: var(--white);
+            color: var(--orange);
+            transform: translateY(-5px);
+        }
+
+        /* FOOTER - Asymmetric Layout */
+        .footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            position: relative;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            padding: 80px 80px 40px;
+        }
+
+        .footer-logo {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: var(--yellow);
+        }
+
+        .footer-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--yellow);
+            font-size: 1.2em;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--hot-pink);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px 80px;
+            text-align: center;
+        }
+
+        .footer-bottom-content {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Cookie Consent */
+        .cookie-consent {
+            display: none !important;
+        }
+
+        .cookie-consent.active {
+            display: block;
+        }
+
+        .cookie-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .cookie-text {
+            color: var(--medium-gray);
+            line-height: 1.6;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cookie-btn {
+            padding: 12px 35px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            border: none;
+        }
+
+        .accept-btn {
+            background: var(--fuschia);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .accept-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+            background: var(--hot-pink);
+        }
+
+        .reject-btn {
+            background: var(--light-gray);
+            color: var(--dark-gray);
+        }
+
+        .reject-btn:hover {
+            background: var(--medium-gray);
+            color: var(--white);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 30px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-section {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-main {
+                padding: 60px 30px;
+            }
+
+            .hero-heading {
+                font-size: 2.5em;
+            }
+
+            .hero-sidebar {
+                min-height: 200px;
+            }
+
+            .about-section,
+            .services-section,
+            .portfolio-section,
+            .blog-section,
+            .cta-section {
+                padding: 60px 30px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card:first-child {
+                grid-row: auto;
+            }
+
+            .portfolio-masonry {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0 15px;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .footer-main {
+                grid-template-columns: 1fr;
+                padding: 40px 30px;
+            }
+
+            .cookie-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Kaysee Williams</h1>
-        <p class="subtitle">Website Layout Options - Please review and provide feedback</p>
-        
-        <div class="options-grid">
-            <a href="layout-option-1.html" class="option-card">
-                <div class="option-title">Layout Option 1 - Classic Centered</div>
-                <div class="option-description">
-                    Traditional centered layout with sticky top navigation and horizontal scrolling portfolio. 
-                    Features accordion-style blog section and standard grid layouts.
-                </div>
-            </a>
+    <!-- Admin Toggle Button -->
+    <button class="admin-toggle" onclick="toggleAdminMode()">Admin Mode</button>
+    
+    <!-- Backup Button (only visible in admin mode) -->
+    <button class="backup-btn" onclick="generateBackup()">💾 Backup Site</button>
+
+    <div class="site-container">
+        <!-- Header - Horizontal Top Nav -->
+        <header class="header">
+            <div class="logo-area">Kaysee</div>
+            <nav class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#work" class="nav-link">Work</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#blog" class="nav-link">Blog</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button class="high-contrast-btn" onclick="toggleHighContrast()">High Contrast</button>
+            </nav>
+        </header>
+
+        <!-- Hero Section - Asymmetric Magazine Layout -->
+        <section id="home" class="hero-section">
+            <div class="hero-main">
+                <h1 class="hero-heading editable" data-edit-type="text" data-edit-target="hero-heading">Empowering Children to Thrive</h1>
+                <p class="hero-text editable" data-edit-type="text" data-edit-target="hero-text">I'm passionate about education, advocacy, and creating safe spaces where every child can reach their full potential. Through tutoring, nonprofit work, and family advocacy, I'm building a brighter future for our children.</p>
+                <button class="hero-button">Learn More</button>
+            </div>
+            <div class="hero-sidebar image-container" data-edit-type="image" data-edit-target="hero-image">
+                Kaysee's Photo Here
+            </div>
             
-            <a href="layout-option-2.html" class="option-card">
-                <div class="option-title">Layout Option 2 - Magazine Style</div>
-                <div class="option-description">
-                    Asymmetric magazine-style layout with split hero section, offset grids, and masonry portfolio. 
-                    Features horizontal navigation and featured blog with sidebar.
+        </section>
+
+        <!-- About Section - Offset Grid -->
+        <section id="about" class="about-section">
+            <div class="about-grid">
+                <div class="about-image-wrap">
+                    <div class="about-image image-container" data-edit-type="image" data-edit-target="about-image">Kaysee's Photo Here</div>
                 </div>
-            </a>
+                <div class="about-content">
+                    <h2 class="editable" data-edit-type="text" data-edit-target="about-title">About Me</h2>
+                    <p class="editable" data-edit-type="text" data-edit-target="about-text-1">Hi, I'm Kaysee</p>
+                    <p class="editable" data-edit-type="text" data-edit-target="about-text-2">I'm an educator, advocate, and passionate champion for children's success. My journey began when I realized I was doing a disservice teaching 3rd grade curriculum to students who were reading at a 1st grade level.</p>
+                    <p class="editable" data-edit-type="text" data-edit-target="about-text-3">This realization sparked my mission to create Young and Vibrant Tutoring, where we build confidence and academic success through personalized online tutoring for grades K-9.</p>
+                    <p class="editable" data-edit-type="text" data-edit-target="about-text-4">Beyond education, I co-founded Young and Vibrant Inc., a 501c3 nonprofit dedicated to eradicating child sexual abuse through education, prevention programs, and safe foster care homes.</p>
+                    <p class="editable" data-edit-type="text" data-edit-target="about-text-5">As a bonus mom to a wonderful young boy, I've learned that every child deserves love, support, and the opportunity to thrive in a safe, nurturing environment.</p>
+                </div>
+            </div>
             
-            <a href="layout-option-3.html" class="option-card">
-                <div class="option-title">Layout Option 3 - Sidebar Navigation</div>
-                <div class="option-description">
-                    Fixed left sidebar navigation with full-width main content area. 
-                    Features traditional grid layouts and vertical navigation highlighting.
+        </section>
+
+        <!-- Services Section - Asymmetric Cards -->
+        <section id="services" class="services-section">
+            <h2 class="section-heading editable" data-edit-type="text" data-edit-target="services-title">My Mission and Services</h2>
+            <p class="section-subheading editable" data-edit-type="text" data-edit-target="services-subtitle">Empowering children and families through education and advocacy</p>
+            <div class="services-grid">
+                <div class="feature-card">
+                    <h3 class="card-title editable" data-edit-type="text" data-edit-target="tutoring-title">Young and Vibrant Tutoring</h3>
+                    <p class="card-text editable" data-edit-type="text" data-edit-target="tutoring-text">Confidence-building online math and reading tutoring for grades K-9. We specialize in writing, math, and reading tutoring, standardized testing preparation, and fostering self-confidence.</p>
                 </div>
-            </a>
+                <div class="feature-card">
+                    <h3 class="card-title editable" data-edit-type="text" data-edit-target="nonprofit-title">Young and Vibrant Inc.</h3>
+                    <p class="card-text editable" data-edit-type="text" data-edit-target="nonprofit-text">Our mission is to eradicate child sexual abuse. We offer child abuse prevention programs, youth development activities, tutoring, and volunteer opportunities.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="card-title editable" data-edit-type="text" data-edit-target="bonus-mom-title">Bonus Mom</h3>
+                    <p class="card-text editable" data-edit-type="text" data-edit-target="bonus-mom-text">Being a step-mom to a young boy has taught me the incredible power of love, patience, and understanding. Every day brings new opportunities to support and encourage.</p>
+                </div>
+            </div>
             
-            <a href="animated-components.html" class="option-card">
-                <div class="option-title">Animated Components and Backgrounds</div>
-                <div class="option-description">
-                    Explore animated gradient backgrounds and interactive components using your brand colors. 
-                    Preview various animation styles for hero sections and page backgrounds.
+        </section>
+
+        <!-- Portfolio Section - Masonry Layout -->
+        <section id="work" class="portfolio-section">
+            <h2 class="section-heading editable" data-edit-type="text" data-edit-target="portfolio-title">Featured Projects</h2>
+            <p class="section-subheading editable" data-edit-type="text" data-edit-target="portfolio-subtitle">A showcase of recent work I'm proud of</p>
+            <div class="portfolio-masonry">
+                <div class="portfolio-card">
+                    <div class="portfolio-image image-container" data-edit-type="image" data-edit-target="portfolio-image-1">Project Image 1</div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title editable" data-edit-type="text" data-edit-target="portfolio-title-1">Vibrant Startup Launch</h3>
+                        <p class="portfolio-desc editable" data-edit-type="text" data-edit-target="portfolio-desc-1">A complete brand identity for an exciting new tech startup focused on wellness.</p>
+                    </div>
                 </div>
-            </a>
-        </div>
-        
-        <div class="instructions">
-            <strong>Instructions:</strong> Click on a layout option to view the website design. 
-            Use the feedback cards in the margins to let us know what you like about each component. 
-            Your feedback will help us create the perfect final website!
+                <div class="portfolio-card">
+                    <div class="portfolio-image image-container" data-edit-type="image" data-edit-target="portfolio-image-2">Project Image 2</div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title editable" data-edit-type="text" data-edit-target="portfolio-title-2">Social Media Success</h3>
+                        <p class="portfolio-desc editable" data-edit-type="text" data-edit-target="portfolio-desc-2">Multi-platform campaign that increased engagement by 300% in three months.</p>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image image-container" data-edit-type="image" data-edit-target="portfolio-image-3">Project Image 3</div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title editable" data-edit-type="text" data-edit-target="portfolio-title-3">Content That Converts</h3>
+                        <p class="portfolio-desc editable" data-edit-type="text" data-edit-target="portfolio-desc-3">Strategic content series that generated over 10,000 leads for a growing business.</p>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <div class="portfolio-image image-container" data-edit-type="image" data-edit-target="portfolio-image-4">Project Image 4</div>
+                    <div class="portfolio-info">
+                        <h3 class="portfolio-title editable" data-edit-type="text" data-edit-target="portfolio-title-4">Bold Visual Identity</h3>
+                        <p class="portfolio-desc editable" data-edit-type="text" data-edit-target="portfolio-desc-4">Eye-catching design system for a creative agency ready to stand out.</p>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- Blog Section - Featured + Sidebar -->
+        <section id="blog" class="blog-section">
+            <h2 class="section-heading editable" data-edit-type="text" data-edit-target="blog-title">Latest Thoughts and Tips</h2>
+            <p class="section-subheading editable" data-edit-type="text" data-edit-target="blog-subtitle">Sharing insights, inspiration, and practical advice</p>
+            <div class="blog-grid">
+                <div class="blog-featured">
+                    <div class="blog-featured-image image-container" data-edit-type="image" data-edit-target="blog-featured-image">Featured Blog Image</div>
+                    <div class="blog-featured-content">
+                        <div class="blog-meta">
+                            <span class="blog-date editable" data-edit-type="text" data-edit-target="blog-date">Oct 15, 2025</span>
+                            <span class="blog-category editable" data-edit-type="text" data-edit-target="blog-category">Creativity</span>
+                        </div>
+                        <h3 class="blog-post-title editable" data-edit-type="text" data-edit-target="blog-post-title">5 Ways to Stay Creative</h3>
+                        <p class="blog-excerpt editable" data-edit-type="text" data-edit-target="blog-excerpt">Discover simple strategies to keep your creative energy flowing even during busy times. From morning routines to inspiration techniques, learn how to maintain your creative spark.</p>
+                        <a href="#" class="blog-read-more">Read Full Article →</a>
+                    </div>
+                </div>
+                <div class="blog-sidebar">
+                    <div class="blog-card">
+                        <div class="blog-meta">
+                            <span class="blog-date">Oct 10, 2025</span>
+                            <span class="blog-category">Business</span>
+                        </div>
+                        <h3 class="blog-post-title">Building Your Brand</h3>
+                        <p class="blog-excerpt">A step-by-step guide to creating an authentic brand that connects with your ideal audience.</p>
+                        <a href="#" class="blog-read-more">Read More →</a>
+                    </div>
+                    <div class="blog-card">
+                        <div class="blog-meta">
+                            <span class="blog-date">Oct 5, 2025</span>
+                            <span class="blog-category">Tips</span>
+                        </div>
+                        <h3 class="blog-post-title">Marketing on a Budget</h3>
+                        <p class="blog-excerpt">Effective marketing strategies that won't break the bank for small businesses and solopreneurs.</p>
+                        <a href="#" class="blog-read-more">Read More →</a>
+                    </div>
+                    <div class="blog-card">
+                        <div class="blog-meta">
+                            <span class="blog-date">Sep 28, 2025</span>
+                            <span class="blog-category">Inspiration</span>
+                        </div>
+                        <h3 class="blog-post-title">Finding Your Why</h3>
+                        <p class="blog-excerpt">Why purpose matters in business and how to discover what truly drives you forward.</p>
+                        <a href="#" class="blog-read-more">Read More →</a>
+                    </div>
+                    <div class="blog-card">
+                        <div class="blog-meta">
+                            <span class="blog-date">Sep 20, 2025</span>
+                            <span class="blog-category">Social Media</span>
+                        </div>
+                        <h3 class="blog-post-title">Instagram Growth Hacks</h3>
+                        <p class="blog-excerpt">Real strategies that work for growing your Instagram following organically in 2025.</p>
+                        <a href="#" class="blog-read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- CTA Section -->
+        <section id="contact" class="cta-section">
+            <div class="cta-container">
+                <h2 class="cta-heading editable" data-edit-type="text" data-edit-target="cta-title">Ready to Make a Difference?</h2>
+                <p class="cta-text editable" data-edit-type="text" data-edit-target="cta-text">Whether you're looking for tutoring services for your child, want to support our nonprofit mission, or are interested in learning more about child advocacy, I'd love to connect with you.</p>
+                <div class="cta-buttons">
+                    <button class="cta-btn-primary">Get In Touch</button>
+                    <button class="cta-btn-secondary">Learn About Our Mission</button>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-main">
+                <div class="footer-column">
+                    <div class="footer-logo">Kaysee</div>
+                    <p class="footer-description">Educator, advocate, and champion for children's success. Empowering families through education and creating safe spaces where every child can thrive.</p>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-title">Quick Links</div>
+                    <div class="footer-links">
+                        <a href="#home" class="footer-link">Home</a>
+                        <a href="#about" class="footer-link">About</a>
+                        <a href="#work" class="footer-link">Portfolio</a>
+                        <a href="#services" class="footer-link">Services</a>
+                        <a href="#blog" class="footer-link">Blog</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-title">My Work</div>
+                    <div class="footer-links">
+                        <a href="https://youngandvibranttutoring.com" target="_blank" class="footer-link">Young and Vibrant Tutoring</a>
+                        <a href="https://youngandvibrantinc.com" target="_blank" class="footer-link">Young and Vibrant Inc.</a>
+                        <a href="#services" class="footer-link">Bonus Mom Story</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <div class="footer-title">Contact</div>
+                    <div class="footer-links">
+                        <a href="mailto:youngandvibranttutoring@gmail.com" class="footer-link">youngandvibranttutoring@gmail.com</a>
+                        <a href="tel:+13174297952" class="footer-link">(317) 429-7952</a>
+                        <a href="#contact" class="footer-link">Get In Touch</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    Copyright 2025 Kaysee. All rights reserved. | <a href="#" style="color: inherit; text-decoration: underline;">Privacy Policy</a> | <a href="#" style="color: inherit; text-decoration: underline;">Terms of Service</a>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Cookie Consent -->
+        <div class="cookie-consent active">
+            <div class="cookie-container">
+                <p class="cookie-text">
+                    This website uses cookies to enhance your browsing experience and analyze site traffic. By continuing to use this site, you consent to our use of cookies. View our <a href="#" style="color: var(--hot-pink); text-decoration: underline;">Privacy Policy</a> for more information.
+                </p>
+                <div class="cookie-buttons">
+                    <button class="cookie-btn accept-btn" onclick="document.querySelector('.cookie-consent').style.display='none'">Accept All</button>
+                    <button class="cookie-btn reject-btn" onclick="document.querySelector('.cookie-consent').style.display='none'">Reject</button>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Edit Modal -->
+    <div class="edit-modal" id="editModal">
+        <div class="edit-modal-content">
+            <h3 id="modalTitle">Edit Content</h3>
+            <div id="modalBody">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+            <div class="edit-modal-buttons">
+                <button class="edit-btn secondary" onclick="closeEditModal()">Cancel</button>
+                <button class="edit-btn" onclick="saveEdit()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Admin Mode Variables
+        let adminMode = false;
+        let currentEditElement = null;
+        let currentEditType = null;
+        let currentEditTarget = null;
+
+        // Toggle Admin Mode
+        function toggleAdminMode() {
+            adminMode = !adminMode;
+            const body = document.body;
+            const toggleBtn = document.querySelector('.admin-toggle');
+            
+            if (adminMode) {
+                body.classList.add('admin-mode');
+                toggleBtn.textContent = 'Exit Admin';
+                toggleBtn.style.background = '#dc3545';
+                
+                // Add click listeners to editable elements
+                addEditListeners();
+            } else {
+                body.classList.remove('admin-mode');
+                toggleBtn.textContent = 'Admin Mode';
+                toggleBtn.style.background = '';
+                
+                // Remove click listeners
+                removeEditListeners();
+            }
+        }
+
+        // Add click listeners to editable elements
+        function addEditListeners() {
+            document.querySelectorAll('.editable').forEach(element => {
+                element.addEventListener('click', handleTextEdit);
+            });
+            
+            document.querySelectorAll('.image-container').forEach(element => {
+                element.addEventListener('click', handleImageEdit);
+            });
+        }
+
+        // Remove click listeners
+        function removeEditListeners() {
+            document.querySelectorAll('.editable').forEach(element => {
+                element.removeEventListener('click', handleTextEdit);
+            });
+            
+            document.querySelectorAll('.image-container').forEach(element => {
+                element.removeEventListener('click', handleImageEdit);
+            });
+        }
+
+        // Handle text editing
+        function handleTextEdit(event) {
+            if (!adminMode) return;
+            
+            event.preventDefault();
+            event.stopPropagation();
+            
+            currentEditElement = event.target;
+            currentEditType = 'text';
+            currentEditTarget = currentEditElement.getAttribute('data-edit-target');
+            
+            const currentText = currentEditElement.textContent.trim();
+            const elementType = currentEditElement.tagName.toLowerCase();
+            
+            document.getElementById('modalTitle').textContent = `Edit ${elementType.toUpperCase()}`;
+            document.getElementById('modalBody').innerHTML = `
+                <textarea id="editTextarea" placeholder="Enter your text here...">${currentText}</textarea>
+            `;
+            
+            document.getElementById('editModal').classList.add('active');
+            document.getElementById('editTextarea').focus();
+        }
+
+        // Handle image editing
+        function handleImageEdit(event) {
+            if (!adminMode) return;
+            
+            event.preventDefault();
+            event.stopPropagation();
+            
+            currentEditElement = event.target;
+            currentEditType = 'image';
+            currentEditTarget = currentEditElement.getAttribute('data-edit-target');
+            
+            const hasImage = currentEditElement.querySelector('img');
+            const currentImageSrc = hasImage ? hasImage.src : '';
+            
+            document.getElementById('modalTitle').textContent = 'Edit Image';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="image-upload-area" onclick="document.getElementById('imageInput').click()">
+                    <p>Click to upload an image or drag and drop</p>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+                </div>
+                ${currentImageSrc ? `
+                    <div style="text-align: center;">
+                        <img src="${currentImageSrc}" class="image-preview" alt="Current image">
+                        <br>
+                        <button class="remove-image-btn" onclick="removeCurrentImage()">Remove Image</button>
+                    </div>
+                ` : ''}
+            `;
+            
+            document.getElementById('editModal').classList.add('active');
+            
+            // Add drag and drop functionality
+            const uploadArea = document.querySelector('.image-upload-area');
+            uploadArea.addEventListener('dragover', handleDragOver);
+            uploadArea.addEventListener('dragleave', handleDragLeave);
+            uploadArea.addEventListener('drop', handleDrop);
+        }
+
+        // Handle image upload
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    updateImageElement(e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Handle drag and drop
+        function handleDragOver(event) {
+            event.preventDefault();
+            event.currentTarget.classList.add('dragover');
+        }
+
+        function handleDragLeave(event) {
+            event.preventDefault();
+            event.currentTarget.classList.remove('dragover');
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            event.currentTarget.classList.remove('dragover');
+            
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        updateImageElement(e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+
+        // Update image element
+        function updateImageElement(imageSrc) {
+            if (currentEditElement) {
+                // Clear existing content
+                currentEditElement.innerHTML = '';
+                
+                // Add new image
+                const img = document.createElement('img');
+                img.src = imageSrc;
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '20px';
+                currentEditElement.appendChild(img);
+                
+                // Save to database
+                const sectionName = currentEditElement.getAttribute('data-edit-target');
+                const imageName = `image_${sectionName}_${Date.now()}.jpg`;
+                saveImageToDatabase(sectionName, imageSrc, imageName);
+                
+                closeEditModal();
+            }
+        }
+
+        // Remove current image
+        function removeCurrentImage() {
+            if (currentEditElement) {
+                const originalText = currentEditElement.getAttribute('data-original-text') || 'Image Placeholder';
+                currentEditElement.innerHTML = originalText;
+                
+                // Remove from database
+                const sectionName = currentEditElement.getAttribute('data-edit-target');
+                removeImageFromDatabase(sectionName);
+                
+                closeEditModal();
+            }
+        }
+
+        // Save edit
+        function saveEdit() {
+            if (currentEditType === 'text') {
+                const textarea = document.getElementById('editTextarea');
+                if (textarea && currentEditElement) {
+                    const newText = textarea.value;
+                    currentEditElement.textContent = newText;
+                    
+                    // Save to database
+                    saveContentToDatabase(currentEditTarget, newText);
+                }
+            }
+            closeEditModal();
+        }
+
+        // Save content to database
+        function saveContentToDatabase(contentKey, contentText) {
+            fetch('api/content-api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content_key: contentKey,
+                    content_text: contentText
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Content saved to database:', contentKey);
+                } else {
+                    console.error('Failed to save content:', data.message);
+                    // Fallback to localStorage
+                    localStorage.setItem(`content_${contentKey}`, contentText);
+                }
+            })
+            .catch(error => {
+                console.error('Error saving content:', error);
+                // Fallback to localStorage
+                localStorage.setItem(`content_${contentKey}`, contentText);
+            });
+        }
+
+        // Save image to database
+        function saveImageToDatabase(sectionName, imageData, imageName) {
+            fetch('api/image-api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    image_name: imageName,
+                    image_data: imageData,
+                    section_name: sectionName,
+                    alt_text: `Image for ${sectionName}`
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Image saved to database:', sectionName);
+                } else {
+                    console.error('Failed to save image:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error saving image:', error);
+            });
+        }
+
+        // Remove image from database
+        function removeImageFromDatabase(sectionName) {
+            fetch('api/image-api.php', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    section_name: sectionName
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Image removed from database:', sectionName);
+                } else {
+                    console.error('Failed to remove image:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error removing image:', error);
+            });
+        }
+
+        // Close edit modal
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+            currentEditElement = null;
+            currentEditType = null;
+            currentEditTarget = null;
+        }
+
+        // Load saved content on page load
+        function loadSavedContent() {
+            // Load content from database
+            fetch('api/content-api.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update text elements with database content
+                        Object.keys(data.content).forEach(contentKey => {
+                            const element = document.querySelector(`[data-edit-target="${contentKey}"]`);
+                            if (element && element.classList.contains('editable')) {
+                                element.textContent = data.content[contentKey];
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading content from database:', error);
+                    // Fallback to localStorage
+                    loadFromLocalStorage();
+                });
+            
+            // Load images from database
+            fetch('api/image-api.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        data.images.forEach(image => {
+                            const element = document.querySelector(`[data-edit-target="${image.section_name}"]`);
+                            if (element && element.classList.contains('image-container')) {
+                                element.innerHTML = `<img src="${image.image_data}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;" alt="${image.alt_text}">`;
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading images from database:', error);
+                });
+        }
+
+        // Fallback function to load from localStorage
+        function loadFromLocalStorage() {
+            document.querySelectorAll('[data-edit-target]').forEach(element => {
+                const target = element.getAttribute('data-edit-target');
+                const savedContent = localStorage.getItem(`content_${target}`);
+                if (savedContent) {
+                    element.textContent = savedContent;
+                }
+            });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('editModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeEditModal();
+            }
+        });
+
+        // Generate backup HTML file
+        function generateBackup() {
+            if (!adminMode) return;
+            
+            const backupBtn = document.querySelector('.backup-btn');
+            const originalText = backupBtn.textContent;
+            backupBtn.textContent = '⏳ Generating...';
+            backupBtn.disabled = true;
+            
+            fetch('api/backup-api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show success message
+                    showNotification('✅ Backup generated: ' + data.filename, 'success');
+                    
+                    // Optionally download the backup
+                    const link = document.createElement('a');
+                    link.href = data.filename;
+                    link.download = data.filename;
+                    link.click();
+                } else {
+                    showNotification('❌ Backup failed: ' + data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Backup error:', error);
+                showNotification('❌ Backup failed: ' + error.message, 'error');
+            })
+            .finally(() => {
+                backupBtn.textContent = originalText;
+                backupBtn.disabled = false;
+            });
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#007bff'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 25px;
+                font-weight: 600;
+                z-index: 10000;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                animation: slideDown 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            // Add animation CSS
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideDown {
+                        from { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+                        to { transform: translateX(-50%) translateY(0); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function toggleHighContrast() {
+            const body = document.body;
+            const isHighContrast = body.classList.contains('high-contrast');
+            
+            if (isHighContrast) {
+                body.classList.remove('high-contrast');
+                localStorage.setItem('highContrast', 'false');
+            } else {
+                body.classList.add('high-contrast');
+                localStorage.setItem('highContrast', 'true');
+            }
+        }
+
+        function loadHighContrast() {
+            const savedHighContrast = localStorage.getItem('highContrast');
+            if (savedHighContrast === 'true') {
+                document.body.classList.add('high-contrast');
+            }
+        }
+
+        loadHighContrast();
+
+        // Parallax and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved content first
+            loadSavedContent();
+            
+            gsap.registerPlugin(ScrollTrigger);
+
+            const parallaxSections = document.querySelectorAll('.hero-section');
+            parallaxSections.forEach(section => {
+                gsap.to(section, {
+                    backgroundPosition: '50% 100%',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: true
+                    }
+                });
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            const fadeElements = document.querySelectorAll('.feature-card, .portfolio-card, .blog-card');
+            fadeElements.forEach(element => {
+                gsap.from(element, {
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8,
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 85%',
+                        end: 'bottom 20%',
+                        toggleActions: 'play none none reverse'
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
+
