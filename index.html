@@ -351,6 +351,95 @@
             background: #c82333;
         }
 
+        /* Login Modal Styles */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-modal.active {
+            display: flex;
+        }
+
+        .login-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .login-modal h2 {
+            color: var(--fuschia);
+            margin-bottom: 30px;
+            font-size: 2em;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .login-input {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--fuschia);
+        }
+
+        .login-btn {
+            background: var(--fuschia);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: var(--hot-pink);
+            transform: translateY(-2px);
+        }
+
+        .login-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-error {
+            color: #dc3545;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+        }
+
         /* Additional Portfolio Responsive Breakpoints */
         @media (min-width: 769px) and (max-width: 1024px) {
             .portfolio-masonry {
@@ -1307,6 +1396,19 @@
         </div>
     </div>
 
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-modal-content">
+            <h2>Admin Login</h2>
+            <form class="login-form" onsubmit="handleLogin(event)">
+                <input type="text" class="login-input" id="username" placeholder="Username" required>
+                <input type="password" class="login-input" id="password" placeholder="Password" required>
+                <button type="submit" class="login-btn" id="loginBtn">Login</button>
+                <div class="login-error" id="loginError"></div>
+            </form>
+        </div>
+    </div>
+
     <!-- Edit Modal -->
     <div class="edit-modal" id="editModal">
         <div class="edit-modal-content">
@@ -1327,9 +1429,138 @@
         let currentEditElement = null;
         let currentEditType = null;
         let currentEditTarget = null;
+        let isAuthenticated = false;
 
-        // Toggle Admin Mode
+        // Check authentication status on page load
+        function checkAuthStatus() {
+            fetch('api/auth-api.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.logged_in) {
+                        isAuthenticated = true;
+                        updateAdminButton(true);
+                    } else {
+                        isAuthenticated = false;
+                        updateAdminButton(false);
+                    }
+                })
+                .catch(error => {
+                    console.error('Auth check error:', error);
+                    isAuthenticated = false;
+                    updateAdminButton(false);
+                });
+        }
+
+        // Update admin button based on auth status
+        function updateAdminButton(loggedIn) {
+            const toggleBtn = document.querySelector('.admin-toggle');
+            if (loggedIn) {
+                toggleBtn.textContent = 'Admin Mode';
+                toggleBtn.style.background = '';
+                toggleBtn.onclick = () => toggleAdminMode();
+            } else {
+                toggleBtn.textContent = 'Admin Login';
+                toggleBtn.style.background = '#28a745';
+                toggleBtn.onclick = () => showLoginModal();
+            }
+        }
+
+        // Show login modal
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+            document.getElementById('username').focus();
+        }
+
+        // Hide login modal
+        function hideLoginModal() {
+            document.getElementById('loginModal').classList.remove('active');
+            document.getElementById('loginError').classList.remove('show');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // Handle login form submission
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const errorDiv = document.getElementById('loginError');
+            
+            // Show loading state
+            loginBtn.textContent = 'Logging in...';
+            loginBtn.disabled = true;
+            errorDiv.classList.remove('show');
+            
+            fetch('api/auth-api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: 'login',
+                    username: username,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    isAuthenticated = true;
+                    hideLoginModal();
+                    updateAdminButton(true);
+                    showNotification('✅ Login successful!', 'success');
+                } else {
+                    errorDiv.textContent = data.message || 'Login failed';
+                    errorDiv.classList.add('show');
+                }
+            })
+            .catch(error => {
+                console.error('Login error:', error);
+                errorDiv.textContent = 'Login failed. Please try again.';
+                errorDiv.classList.add('show');
+            })
+            .finally(() => {
+                loginBtn.textContent = 'Login';
+                loginBtn.disabled = false;
+            });
+        }
+
+        // Handle logout
+        function handleLogout() {
+            fetch('api/auth-api.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: 'logout'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    isAuthenticated = false;
+                    adminMode = false;
+                    document.body.classList.remove('admin-mode');
+                    updateAdminButton(false);
+                    removeEditListeners();
+                    showNotification('✅ Logged out successfully', 'success');
+                }
+            })
+            .catch(error => {
+                console.error('Logout error:', error);
+            });
+        }
+
+        // Toggle Admin Mode (only if authenticated)
         function toggleAdminMode() {
+            if (!isAuthenticated) {
+                showLoginModal();
+                return;
+            }
+            
             adminMode = !adminMode;
             const body = document.body;
             const toggleBtn = document.querySelector('.admin-toggle');
@@ -1338,6 +1569,7 @@
                 body.classList.add('admin-mode');
                 toggleBtn.textContent = 'Exit Admin';
                 toggleBtn.style.background = '#dc3545';
+                toggleBtn.onclick = () => handleLogout();
                 
                 // Add click listeners to editable elements
                 addEditListeners();
@@ -1345,6 +1577,7 @@
                 body.classList.remove('admin-mode');
                 toggleBtn.textContent = 'Admin Mode';
                 toggleBtn.style.background = '';
+                toggleBtn.onclick = () => toggleAdminMode();
                 
                 // Remove click listeners
                 removeEditListeners();
@@ -1673,6 +1906,21 @@
             }
         });
 
+        // Close login modal when clicking outside
+        document.getElementById('loginModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                hideLoginModal();
+            }
+        });
+
+        // Close login modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                hideLoginModal();
+                closeEditModal();
+            }
+        });
+
         // Generate backup HTML file
         function generateBackup() {
             if (!adminMode) return;
@@ -1777,7 +2025,10 @@
 
         // Parallax and animations
         document.addEventListener('DOMContentLoaded', function() {
-            // Load saved content first
+            // Check authentication status first
+            checkAuthStatus();
+            
+            // Load saved content
             loadSavedContent();
             
             gsap.registerPlugin(ScrollTrigger);

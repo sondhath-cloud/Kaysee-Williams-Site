@@ -23,6 +23,18 @@ CREATE TABLE IF NOT EXISTS site_images (
     is_active BOOLEAN DEFAULT TRUE
 );
 
+-- 3. Admin Users Table (for authentication)
+CREATE TABLE IF NOT EXISTS admin_users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    email VARCHAR(100),
+    full_name VARCHAR(100),
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_login TIMESTAMP NULL
+);
+
 -- Insert default content entries
 INSERT INTO site_content (content_key, content_text, section_name) VALUES 
 ('hero-heading', 'Empowering Children to Thrive', 'hero'),
@@ -60,6 +72,13 @@ INSERT INTO site_content (content_key, content_text, section_name) VALUES
 ('cta-title', 'Ready to Make a Difference?', 'cta'),
 ('cta-text', 'Whether you''re looking for tutoring services for your child, want to support our nonprofit mission, or are interested in learning more about child advocacy, I''d love to connect with you.', 'cta')
 ON DUPLICATE KEY UPDATE content_text=VALUES(content_text);
+
+-- Insert default admin user
+-- Username: admin, Password: admin123 (change this!)
+-- Using MD5 hash for compatibility (less secure but works)
+INSERT INTO admin_users (username, password_hash, email, full_name) VALUES 
+('admin', '0192023a7bbd73250516f069df18b500', 'admin@kayseewilliams.com', 'Site Administrator')
+ON DUPLICATE KEY UPDATE password_hash=VALUES(password_hash);
 
 -- Verify tables were created
 SHOW TABLES;
